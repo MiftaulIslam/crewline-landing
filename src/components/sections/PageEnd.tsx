@@ -3,6 +3,7 @@ import type { PageEntry, SiteContent } from '@/content/types'
 import { pageHref } from '@/content'
 import { DownloadButton } from '@/components/ui/Buttons'
 import { Jack } from '@/components/ui/Jack'
+import { RevealText } from '@/components/ui/RevealText'
 import { RISE } from '@/lib/style'
 
 /** Three more pages, each a photo that turns into its screenshot on hover */
@@ -11,9 +12,7 @@ export function KeepReading({ title, pages }: { title: string; pages: PageEntry[
     <section className="night">
       <Jack y={14} />
       <div className="wrap">
-        <h2 className="h2" {...RISE}>
-          {title}
-        </h2>
+        <RevealText className="h2" text={title} />
         <div className="next">
           {pages.map((p) => (
             <Link key={p.slug} href={pageHref(p.slug)} {...RISE}>
@@ -42,7 +41,7 @@ export function DownloadSection({ content }: { content: SiteContent['download'] 
       </video>
       <div className="film__shade film__shade--heavy"></div>
       <div className="wrap film__body">
-        <h2 className="h1">{content.title}</h2>
+        <RevealText className="h1" text={content.title} />
         <p className="hero__actions end__actions">
           <Jack end />
           <DownloadButton>{content.button}</DownloadButton>

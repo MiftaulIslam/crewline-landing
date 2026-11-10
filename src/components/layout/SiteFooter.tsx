@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { FooterColumn, PageEntry, SiteContent } from '@/content/types'
 import { pageHref } from '@/content'
+import { Button } from '@/components/ui/Buttons'
 
 interface SiteFooterProps {
   site: SiteContent
@@ -33,9 +34,9 @@ export function SiteFooter({ site, pages }: SiteFooterProps) {
             {site.tagline}. {site.sampleNote}
           </p>
           <p>
-            <Link className="btn btn--small" href="/#download">
+            <Button variant="small" href="/#download">
               {footer.download}
-            </Link>
+            </Button>
           </p>
         </div>
         {footer.columns.map((c) => (

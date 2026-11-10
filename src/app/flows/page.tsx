@@ -1,6 +1,7 @@
 import { PageBehaviour } from '@/components/layout/PageBehaviour'
 import { FeatureHero } from '@/components/sections/heroes'
-import { HoverList, LimitsSection, ScreenStepper, SplitSection } from '@/components/sections/content'
+import { HoverList, ScreenStepper, SplitSection } from '@/components/sections/content'
+import { LimitsSection } from '@/components/sections/limits'
 import { DownloadSection, KeepReading } from '@/components/sections/PageEnd'
 import { PageSchema } from '@/components/seo/PageSchema'
 import { FlowRun, RuleLimit } from '@/components/vignettes'

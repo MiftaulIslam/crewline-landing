@@ -1,8 +1,8 @@
-import Link from 'next/link'
 import type { ReactNode } from 'react'
 import type { FeatureHeroContent, LanguageHeroContent, PageEntry, PhotoHeroContent, StoryFilmContent } from '@/content/types'
 import { pageHref } from '@/content'
-import { DownloadButton } from '@/components/ui/Buttons'
+import { Button, DownloadButton } from '@/components/ui/Buttons'
+import { RevealText } from '@/components/ui/RevealText'
 import { Jack } from '@/components/ui/Jack'
 import { Lede } from '@/components/ui/Lede'
 
@@ -23,13 +23,13 @@ export function FeatureHero({ content, next, nextLabel, downloadLabel, children 
       <Jack y={30} />
       <div className="wrap hero2__grid">
         <div>
-          <h1 className="hero2__title">{content.title}</h1>
+          <RevealText as="h1" className="hero2__title" text={content.title} />
           <Lede text={content.lede} />
           <p className="hero__actions">
             <DownloadButton>{downloadLabel}</DownloadButton>
-            <Link className="btn btn--line" href={pageHref(next.slug)}>
+            <Button variant="line" href={pageHref(next.slug)}>
               {nextLabel} {next.nav.toLowerCase()}
-            </Link>
+            </Button>
           </p>
         </div>
         <div>{children}</div>
@@ -47,7 +47,7 @@ export function PhotoHero({ content }: { content: PhotoHeroContent }) {
       <div className="film__shade"></div>
       <Jack y={56} />
       <div className="wrap film__body">
-        <h1 className="h1">{content.title}</h1>
+        <RevealText as="h1" className="h1" text={content.title} />
         <Lede text={content.lede} />
       </div>
     </section>
@@ -92,12 +92,10 @@ export function StoryFilm({ content, as: Heading = 'h1', jack = 40 }: StoryFilmP
       <div className="film__shade" id="story-shade"></div>
       <Jack y={jack} />
       <div className="wrap film__body" id="story-body">
-        <Heading className="h1">{content.title}</Heading>
+        <RevealText as={Heading} className="h1" text={content.title} />
         <Lede text={content.lede} />
         <p className="hero__actions">
-          <button className="btn" id="story-play">
-            {content.play}
-          </button>
+          <Button id="story-play">{content.play}</Button>
         </p>
       </div>
     </section>

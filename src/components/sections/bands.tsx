@@ -1,6 +1,7 @@
 import type { PhotoBandContent, VideoBandContent } from '@/content/types'
 import { Jack } from '@/components/ui/Jack'
 import { Lede } from '@/components/ui/Lede'
+import { RevealText } from '@/components/ui/RevealText'
 
 /** A full-screen photograph with a headline over it */
 export function PhotoBand({ content }: { content: PhotoBandContent }) {
@@ -11,7 +12,7 @@ export function PhotoBand({ content }: { content: PhotoBandContent }) {
       <div className="film__shade"></div>
       <Jack y={30} />
       <div className="wrap film__body">
-        <h2 className="h1">{content.title}</h2>
+        <RevealText className="h1" text={content.title} />
         <Lede text={content.lede} />
       </div>
     </section>
@@ -28,7 +29,7 @@ export function VideoBand({ content }: { content: VideoBandContent }) {
       <div className="film__shade"></div>
       <Jack y={30} />
       <div className="wrap film__body">
-        <h2 className="h1">{content.title}</h2>
+        <RevealText className="h1" text={content.title} />
         <Lede text={content.lede} />
       </div>
     </section>

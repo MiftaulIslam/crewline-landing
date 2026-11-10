@@ -11,18 +11,58 @@
     "menuLabel": "Menu",
     "closeLabel": "Close",
     "links": [
-      { "label": "Setup", "slug": "setup" },
-      { "label": "Compare", "slug": "compare" },
-      { "label": "The film", "slug": "story" },
-      { "label": "Questions", "slug": "faq" }
+      {
+        "label": "Setup",
+        "slug": "setup"
+      },
+      {
+        "label": "Compare",
+        "slug": "compare"
+      },
+      {
+        "label": "The film",
+        "slug": "story"
+      },
+      {
+        "label": "Questions",
+        "slug": "faq"
+      }
     ],
     "download": "Download"
   },
   "footer": {
     "columns": [
-      { "title": "What it does", "slugs": ["conversations", "agents", "flows", "knowledge", "photos", "calls"] },
-      { "title": "How it behaves", "slugs": ["approvals", "languages", "after-hours", "privacy"] },
-      { "title": "Getting started", "slugs": ["setup", "store", "models", "compare", "story", "faq"] }
+      {
+        "title": "What it does",
+        "slugs": [
+          "conversations",
+          "agents",
+          "flows",
+          "knowledge",
+          "photos",
+          "calls"
+        ]
+      },
+      {
+        "title": "How it behaves",
+        "slugs": [
+          "approvals",
+          "languages",
+          "after-hours",
+          "privacy"
+        ]
+      },
+      {
+        "title": "Getting started",
+        "slugs": [
+          "setup",
+          "store",
+          "models",
+          "compare",
+          "story",
+          "faq"
+        ]
+      }
     ],
     "download": "Download for Windows",
     "credits": "Archival film and photographs are in the public domain. Stock clips and photos are from Pexels.",
@@ -33,11 +73,21 @@
     "title": "Put someone on the board",
     "button": "Download for Windows",
     "spec": "228 MB. Windows 10 or later, 64-bit.",
-    "film": { "src": "/media/video/relays.mp4", "poster": "/media/video/relays.jpg" },
+    "film": {
+      "src": "/media/video/relays.mp4",
+      "poster": "/media/video/relays.jpg"
+    },
     "os": "Windows 10, Windows 11",
     "size": "228 MB",
     "version": "1.0.0"
   },
   "keepReading": "Keep reading",
-  "nextLabel": "Next:"
+  "nextLabel": "Next:",
+  "chat": {
+    "agent": "Crewline",
+    "you": "You",
+    "thinking": "Crewline is thinking",
+    "ask": "Ask",
+    "label": "Questions, answered by Crewline"
+  }
 }

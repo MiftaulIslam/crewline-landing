@@ -147,30 +147,117 @@ define('routing', async (el, s, data) => {
       <rect x="${x}" y="${y}" width="${W}" height="${H}" rx="10"/>
       ${a ? `<rect class="sq" x="${x + 16}" y="${y + 26}" width="18" height="18" rx="4" fill="${AGENT[a]}"/>` : `<circle class="lp" cx="${x + 25}" cy="${y + 35}" r="6"/>`}
       <text x="${x + 46}" y="${y + 41}">${esc(data.nodes[k])}</text></g>`).join('')}
-    <circle class="al-map__dot" r="9" cx="-40" cy="-40"/>
+    <g class="al-map__dots"></g>
   </svg></div><p class="al-map__cap"><span data-q></span><b data-a></b></p>`
   const ROUTES = data.routes
-  const dot = $('.al-map__dot', el)
-  let n = 0
-  await s.loop(async () => {
-    const route = ROUTES[n++ % ROUTES.length]
+  const dots = $('.al-map__dots', el)
+  const cap = $('.al-map__cap', el)
+  // A route as timed steps: wait on a node, then ride a cord to the next one, then linger
+  // on arrival. The Researcher hands back to the Reviewer along the same cord.
+  const stepsOf = (path) => path.flatMap((k, i) => {
+    const node = { node: $(`[data-n=${k}]`, el), ms: i ? 220 : 420 }
+    if (i === path.length - 1) return [node, { end: true, ms: 1100 }]
+    const cord = $(`[data-e="${k}-${path[i + 1]}"]`, el) ?? $(`[data-e="${path[i + 1]}-${k}"]`, el)
+    return cord ? [node, { cord, ms: 560 }] : [node]
+  })
+  // Several messages share nodes and cords, so a part stays lit while any of them holds it
+  const holds = new Map()
+  const hit = (x) => { holds.set(x, (holds.get(x) ?? 0) + 1); x.classList.add('is-hit') }
+  const unhit = (x) => {
+    const h = (holds.get(x) ?? 1) - 1
+    if (h > 0) return holds.set(x, h)
+    holds.delete(x)
+    x.classList.remove('is-hit')
+  }
+  const arrive = (route) => {
     $('[data-q]', el).textContent = route.message
-    $('[data-a]', el).textContent = ''
-    dot.classList.toggle('is-attn', !!route.attn)
-    $$('.is-hit', el).forEach((x) => x.classList.remove('is-hit'))
-    const path = route.path
-    for (let i = 0; i < path.length; i++) {
-      $(`[data-n=${path[i]}]`, el).classList.add('is-hit')
-      await s.sleep(i ? 260 : 500)
-      if (i === path.length - 1) break
-      // The Researcher hands back to the Reviewer along the same cord
-      const e = $(`[data-e="${path[i]}-${path[i + 1]}"]`, el) ?? $(`[data-e="${path[i + 1]}-${path[i]}"]`, el)
-      if (!e) continue
-      e.classList.add('is-hit')
-      await along(e, dot, calm ? 0 : 520, s.signal)
-    }
     $('[data-a]', el).textContent = route.outcome
-    await s.sleep(2200)
+    if (!calm) cap.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 360, easing: 'cubic-bezier(.2,.7,.2,1)' })
+  }
+  if (calm) {
+    // The end state: the first message's whole route lit, and where it ended up
+    stepsOf(ROUTES[0].path).forEach((st) => { if (st.node || st.cord) hit(st.node ?? st.cord) })
+    arrive(ROUTES[0])
+    return
+  }
+  // Each message in flight: its dot, where it is in its steps, and the trail it keeps lit
+  // (the last node, cord and node, so a lit wake follows the dot and fades behind it)
+  const flying = []
+  const launch = (route) => {
+    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+    dot.setAttribute('class', route.attn ? 'al-map__dot is-attn' : 'al-map__dot')
+    dot.setAttribute('r', '9')
+    dot.setAttribute('cx', '-40')
+    dot.setAttribute('cy', '-40')
+    dots.append(dot)
+    flying.push({ route, dot, steps: stepsOf(route.path), k: -1, t: 0, trail: [] })
+  }
+  const light = (f, x) => {
+    hit(x)
+    f.trail.push(x)
+    if (f.trail.length > 3) unhit(f.trail.shift())
+  }
+  const begin = (f, st) => {
+    if (st.node) light(f, st.node)
+    else if (st.cord) {
+      light(f, st.cord)
+      f.dot.classList.add('is-on')
+    } else {
+      f.dot.classList.remove('is-on')
+      arrive(f.route)
+    }
+  }
+  /** Moves one message on by dt ms; false once it has arrived and lingered */
+  const advance = (f, dt) => {
+    f.t += dt
+    for (;;) {
+      if (f.k < 0 || f.t >= f.steps[f.k].ms) {
+        if (f.k >= 0) f.t -= f.steps[f.k].ms
+        if (++f.k >= f.steps.length) return false
+        begin(f, f.steps[f.k])
+        continue
+      }
+      const st = f.steps[f.k]
+      if (st.cord) {
+        const p = st.cord.getPointAtLength(st.cord.getTotalLength() * Math.min(1, f.t / st.ms))
+        f.dot.setAttribute('cx', p.x)
+        f.dot.setAttribute('cy', p.y)
+      }
+      return true
+    }
+  }
+  const land = (f) => {
+    f.trail.forEach(unhit)
+    f.dot.remove()
+  }
+  // A new message every second or so, never one already on its way, at most four at once
+  const GAPS = [1300, 900, 1500, 1100]
+  const frame = () => new Promise((done) => {
+    const stop = () => { cancelAnimationFrame(id); done(0) }
+    const id = requestAnimationFrame((t) => { s.signal.removeEventListener('abort', stop); done(t) })
+    s.signal.addEventListener('abort', stop, { once: true })
+  })
+  let n = 0
+  let wait = 0
+  let last = 0
+  // One frame per turn: s.loop waits while the map is off screen, and dt is capped so a
+  // paused map picks up where it left off
+  await s.loop(async () => {
+    const t = await frame()
+    if (s.signal.aborted) return
+    const dt = last ? Math.min(50, t - last) : 0
+    last = t
+    wait -= dt
+    const route = ROUTES[n % ROUTES.length]
+    if (wait <= 0 && flying.length < 4 && !flying.some((f) => f.route === route)) {
+      launch(route)
+      wait = GAPS[n++ % GAPS.length]
+    }
+    for (let i = flying.length - 1; i >= 0; i--) {
+      if (advance(flying[i], dt)) continue
+      land(flying[i])
+      flying.splice(i, 1)
+    }
   })
 })
 
@@ -559,21 +646,43 @@ define('dial', async (el, s, faq) => {
     <g class="al-dial__plate"><circle cx="200" cy="200" r="168" mask="url(#dial-holes)"/></g>
     <circle class="al-dial__hub" cx="200" cy="200" r="50"/><text class="al-dial__hubt" x="200" y="207">FAQ</text>
     ${(() => { const [x1, y1] = pos(stop, 150); const [x2, y2] = pos(stop, 186); return `<line class="al-dial__stop" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>` })()}
+    ${calm ? '' : '<circle class="al-dial__ring" r="33" pathLength="1"/>'}
     ${QA.map((c, i) => { const [x, y] = pos(ang(i), R); return `<circle class="al-dial__hit" data-i="${i}" cx="${x}" cy="${y}" r="27" tabindex="0" role="button" aria-label="${attr(c.q)}"/>` }).join('')}
-  </svg><div class="al-dial__panel" aria-live="polite"><small data-c></small><h3 data-q></h3><p data-a></p><p class="al-dial__nav"><button data-p aria-label="Previous question">Previous</button><button data-n aria-label="Next question">Next</button></p></div></div>`
+  </svg><div class="al-dial__panel" aria-live="polite"><small data-c></small><h3 data-q></h3><p data-a></p><p class="al-dial__nav"><button class="btn btn--line" data-p aria-label="Previous question"><span class="btn__label">Previous</span></button><button class="btn btn--line" data-n aria-label="Next question"><span class="btn__label">Next</span></button></p></div></div>`
   const plate = $('.al-dial__plate', el)
+  const panel = $('.al-dial__panel', el)
+  // The ring round the current number fills while the visitor reads, and when it closes the
+  // dial turns to the next question. Any pick starts it again; pointing at the dial or
+  // keyboard focus inside it holds it.
+  const ring = $('.al-dial__ring', el)
+  const readFor = (i) => 4500 + QA[i].a.length * 20
+  let read = 0
   let at = 0
   let timer = 0
   s.signal.addEventListener('abort', () => clearTimeout(timer), { once: true })
-  const show = (i) => {
+  const place = () => {
+    if (!ring) return
+    const [x, y] = pos(ang(at), R)
+    ring.setAttribute('cx', x)
+    ring.setAttribute('cy', y)
+    ring.setAttribute('transform', `rotate(-90 ${x} ${y})`)
+    ring.classList.remove('is-run')
+    ring.style.strokeDashoffset = '1'
+    // Wait out the plate's turn and return before the ring starts to fill
+    read = -1400
+  }
+  const show = (i, user = true) => {
     at = (i + n) % n
+    // Only a visitor's own pick is read out; the dial turning by itself stays quiet
+    panel.setAttribute('aria-live', user ? 'polite' : 'off')
+    place()
     $('[data-c]', el).textContent = `Question ${at + 1} of ${n}`
     $('[data-q]', el).textContent = QA[at].q
     $('[data-a]', el).textContent = QA[at].a
     $$('.al-dial__hit', el).forEach((h, k) => h.classList.toggle('is-on', k === at))
   }
-  const spin = (i) => {
-    show(i)
+  const spin = (i, user = true) => {
+    show(i, user)
     if (calm) return
     clearTimeout(timer)
     plate.style.transition = 'transform .55s cubic-bezier(.3,.7,.3,1)'
@@ -590,7 +699,29 @@ define('dial', async (el, s, faq) => {
   })
   $('[data-p]', el).addEventListener('click', () => spin(at - 1))
   $('[data-n]', el).addEventListener('click', () => spin(at + 1))
-  show(0)
+  show(0, false)
+  if (calm) return
+  const dial = $('.al-dial', el)
+  let hover = false
+  dial.addEventListener('pointerenter', () => (hover = true), { signal: s.signal })
+  dial.addEventListener('pointerleave', () => (hover = false), { signal: s.signal })
+  let last = 0
+  // s.sleep stops counting while the dial is off screen; dt is capped so it resumes in place
+  await s.loop(async () => {
+    await s.sleep(100)
+    const now = performance.now()
+    const dt = last ? Math.min(150, now - last) : 0
+    last = now
+    const held = hover || !!$(':focus-visible', dial)
+    ring.classList.toggle('is-held', held)
+    if (held) return
+    read += dt
+    if (read <= 0) return
+    const k = Math.min(1, read / readFor(at))
+    ring.classList.add('is-run')
+    ring.style.strokeDashoffset = String(1 - k)
+    if (k === 1) spin(at + 1, false)
+  })
 })
 
 /**

@@ -1,6 +1,7 @@
 import { PageBehaviour } from '@/components/layout/PageBehaviour'
 import { LanguageHero } from '@/components/sections/heroes'
-import { LimitsSection, SplitSection, StepsSection } from '@/components/sections/content'
+import { SplitSection, StepsSection } from '@/components/sections/content'
+import { LimitsSection } from '@/components/sections/limits'
 import { DownloadSection, KeepReading } from '@/components/sections/PageEnd'
 import { PageSchema } from '@/components/seo/PageSchema'
 import { AppWindow } from '@/components/ui/Media'

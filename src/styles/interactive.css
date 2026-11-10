@@ -1,0 +1,134 @@
+/* The interactive pieces: the counting test-day figures, the limits chat, the FAQ dial's
+   progress ring and buttons, and the routing map's many messages. Loaded last, so it overrides
+   site.css and alive.css where the two meet. Only transform, opacity and colours animate. */
+
+/* ------------------------------------------------------------------ test-day figures */
+.numbers__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: clamp(16px, 2vw, 28px);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.6px rgb(14 23 40 / .32);
+  color: var(--ink);
+  transition: background-color .3s var(--ease), color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.numbers__icon svg { display: block; transition: transform .35s var(--ease); }
+.numbers__fig:hover .numbers__icon { background: var(--ink); color: var(--lamp); box-shadow: inset 0 0 0 1.6px var(--ink); }
+@media (prefers-reduced-motion: no-preference) {
+  .numbers__fig:hover .numbers__icon svg { transform: translateY(-2px) rotate(-8deg); }
+}
+
+/* ------------------------------------------------------------------ limits chat */
+.lchat {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: start;
+  margin-top: clamp(40px, 5vw, 72px);
+}
+.lchat__qs { display: grid; margin: 0; padding: 0; list-style: none; }
+.lchat__q {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  padding: 18px 0;
+  border-top: 1px solid rgb(127 127 127 / .3);
+  text-align: left;
+  font-stretch: 112%;
+  font-weight: 500;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  line-height: 1.22;
+  opacity: .66;
+  transition: opacity .2s linear;
+}
+.lchat__qs li:last-child .lchat__q { border-bottom: 1px solid rgb(127 127 127 / .3); }
+.lchat__q:hover, .lchat__q:focus-visible, .lchat__q.is-on { opacity: 1; }
+.lchat__lamp {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  margin-top: .34em;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .3;
+  transition: background-color .2s linear, opacity .2s linear, box-shadow .2s linear;
+}
+.lchat__q:hover .lchat__lamp { opacity: .6; }
+.lchat__q.is-on .lchat__lamp { background: var(--lamp); opacity: 1; box-shadow: 0 0 0 1px currentColor; }
+/* The cord over the active question: full when the visitor is in charge, and filling while
+   the chat waits to move on by itself */
+.lchat__q i { position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--cord); transform: scaleX(0); transform-origin: left; }
+.lchat__q.is-on i { transform: scaleX(1); transition: transform .5s var(--ease); }
+.lchat[data-auto] .lchat__q.is-on i { transform: scaleX(0); transition: none; }
+.lchat[data-auto] .lchat__q.is-on i.is-run { animation: lchat-fill var(--dwell, 6s) linear both; }
+.lchat[data-hold] .lchat__q i.is-run { animation-play-state: paused; }
+@keyframes lchat-fill { to { transform: scaleX(1); } }
+
+.lchat__win { position: sticky; top: 96px; }
+.lchat__body.al-chat__body { display: grid; align-content: start; height: auto; min-height: 260px; gap: 0; }
+/* The size layer holds the longest exchange, unseen, so the window never changes height */
+.lchat__layer { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.lchat__layer--size { visibility: hidden; }
+.lchat__msg { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; animation: lchat-in .4s var(--ease) both; }
+.lchat__msg--me { align-items: flex-end; }
+.lchat__layer--size .lchat__msg { animation: none; }
+.lchat__msg small { color: var(--label-2); font-size: .82rem; }
+.lchat__msg .al-bub { margin: 0; }
+@keyframes lchat-in { from { opacity: 0; transform: translateY(8px); } }
+.lchat__think { display: inline-flex; align-items: center; gap: 10px; color: var(--label-2); }
+.lchat__dots { display: inline-flex; gap: 4px; }
+.lchat__dots i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: lchat-dot 1s ease-in-out infinite; }
+.lchat__dots i:nth-child(2) { animation-delay: .15s; }
+.lchat__dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes lchat-dot { 0%, 60%, 100% { opacity: .3; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+.lchat__caret { display: inline-block; width: 2px; height: 1.05em; margin-left: 2px; vertical-align: -.16em; background: currentColor; animation: lchat-caret .9s steps(1) infinite; }
+@keyframes lchat-caret { 50% { opacity: 0; } }
+
+/* ------------------------------------------------------------------ FAQ dial */
+.al-dial__ring {
+  fill: none;
+  stroke: var(--lamp);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s linear;
+}
+.al-dial__ring.is-run { opacity: 1; transition: opacity .3s linear, stroke-dashoffset .1s linear; }
+.al-dial__ring.is-run.is-held { opacity: .45; }
+/* Previous and Next are the site's line buttons (motion.css): undo alive.css's own button
+   transition and hover, which would otherwise outrank .btn */
+.al-dial__nav .btn { transition: color .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease); }
+.al-dial__nav .btn:hover { background: none; }
+.al-dial__nav .btn:focus-visible { color: var(--ink); }
+
+/* ------------------------------------------------------------------ routing map
+   Many messages at once: each dot fades in on its first cord and out on arrival, and the parts
+   it lit fade slowly behind it */
+.al-map__dot { opacity: 0; transition: opacity .25s linear; }
+.al-map__dot.is-on { opacity: 1; }
+.al-map__cord { transition: stroke .7s linear; }
+.al-map__cord.is-hit { transition: stroke .15s linear; }
+.al-map__node rect:first-child { transition: stroke .7s linear, fill .7s linear; }
+.al-map__node.is-hit rect:first-child { transition: stroke .15s linear, fill .15s linear; }
+.al-map__node .lp { transition: fill .7s linear; }
+.al-map__node.is-hit .lp { transition: fill .15s linear; }
+
+@media (max-width: 960px) {
+  .lchat { grid-template-columns: minmax(0, 1fr); }
+  .lchat__win { position: static; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .numbers__icon, .numbers__icon svg, .lchat__q, .lchat__lamp, .lchat__q i, .al-dial__nav .btn { transition: none; }
+  .lchat__msg, .lchat__dots i, .lchat__caret { animation: none; }
+  .lchat[data-auto] .lchat__q.is-on i { transform: scaleX(1); }
+  .al-dial__ring { display: none; }
+}

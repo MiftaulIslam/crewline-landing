@@ -1,11 +1,12 @@
 import type { ReactNode } from 'react'
 import type {
-  HoverListContent, LimitsContent, ListSectionContent, Question, ScreenStepperContent, ShowcaseContent,
+  HoverListContent, ListSectionContent, Question, ScreenStepperContent, ShowcaseContent,
   SplitContent, StatementContent, TableContent
 } from '@/content/types'
 import { RichText } from '@/components/ui/RichText'
 import { Jack } from '@/components/ui/Jack'
 import { Lede } from '@/components/ui/Lede'
+import { RevealText } from '@/components/ui/RevealText'
 import { Section } from '@/components/ui/Section'
 import { SectionHead } from '@/components/ui/SectionHead'
 import { Alive } from '@/components/vignettes/Alive'
@@ -65,7 +66,7 @@ export function SplitSection({ content, ground, flip, children }: SplitProps) {
     <Section ground={ground}>
       <div className={flip ? 'split split--flip' : 'split'}>
         <div {...RISE}>
-          <h2 className="h2">{content.title}</h2>
+          <RevealText className="h2" text={content.title} />
           <Lede text={content.lede} />
         </div>
         <div {...RISE}>{children}</div>
@@ -192,7 +193,7 @@ export function DataTable({ content, ground }: { content: TableContent } & Groun
   )
 }
 
-function Questions({ items, openFirst }: { items: Question[]; openFirst?: boolean }) {
+export function Questions({ items, openFirst }: { items: Question[]; openFirst?: boolean }) {
   return items.map((q, i) => (
     <details key={q.question} open={openFirst && i === 0}>
       <summary>{q.question}</summary>
@@ -201,27 +202,11 @@ function Questions({ items, openFirst }: { items: Question[]; openFirst?: boolea
   ))
 }
 
-/** What it doesn't do yet: questions that open, the first one open */
-export function LimitsSection({ content, ground }: { content: LimitsContent } & Grounded) {
-  return (
-    <Section ground={ground}>
-      <h2 className="h2" {...RISE}>
-        {content.title}
-      </h2>
-      <div className="limits2" {...RISE}>
-        <Questions items={content.items} openFirst />
-      </div>
-    </Section>
-  )
-}
-
 /** Every question in a closed list */
 export function QuestionList({ title, items, ground }: { title: string; items: Question[] } & Grounded) {
   return (
     <Section ground={ground}>
-      <h2 className="h2" {...RISE}>
-        {title}
-      </h2>
+      <RevealText className="h2" text={title} />
       <div className="limits2" {...RISE}>
         <Questions items={items} />
       </div>

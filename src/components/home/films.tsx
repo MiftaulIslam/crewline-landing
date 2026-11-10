@@ -2,7 +2,8 @@
 import { Fragment, type ReactNode } from 'react'
 import type { SiteContent, VideoBandContent } from '@/content/types'
 import type { HomeDownloadContent, HomeHeroContent, HoursFilmContent, PrivateContent } from '@/content/home.types'
-import { DownloadButton } from '@/components/ui/Buttons'
+import { Button, DownloadButton } from '@/components/ui/Buttons'
+import { RevealText } from '@/components/ui/RevealText'
 import { Jack } from '@/components/ui/Jack'
 import { Lede } from '@/components/ui/Lede'
 import { PageMore } from './parts'
@@ -33,8 +34,8 @@ export function HomeHero({ content, children }: HomeHeroProps) {
         </h1>
         <p className="hero__lede">{content.lede}</p>
         <p className="hero__actions">
-          <a className="btn" href="#download">{content.download}</a>
-          <a className="btn btn--line" href="#live">{content.demo}</a>
+          <Button href="#download">{content.download}</Button>
+          <Button variant="line" href="#live">{content.demo}</Button>
         </p>
       </div>
       <p className="film__credit">{content.credit}</p>
@@ -58,7 +59,7 @@ function FilmBand({ id, content, shade, jack, children }: FilmBandProps) {
       <div className={shade}></div>
       <Jack y={jack.y} x={jack.x} />
       <div className="wrap film__body">
-        <h2 className="h1">{content.title}</h2>
+        <RevealText className="h1" text={content.title} />
         <Lede text={content.lede} />
         {children}
       </div>
@@ -89,7 +90,7 @@ export function PrivatePhoto({ content }: { content: PrivateContent }) {
       <div className="film__shade"></div>
       <Jack y={30} x={18} />
       <div className="wrap film__body film__body--right">
-        <h2 className="h1">{content.title}</h2>
+        <RevealText className="h1" text={content.title} />
         <Lede text={content.lede} />
         <PageMore link={content.more} />
       </div>
@@ -111,7 +112,7 @@ export function HomeDownload({ content, download }: HomeDownloadProps) {
       <video className="film__media" data-lazy-video="" muted loop playsInline preload="none" poster={download.film.poster}><source src={download.film.src} type="video/mp4" /></video>
       <div className="film__shade film__shade--heavy"></div>
       <div className="wrap film__body">
-        <h2 className="h1">{download.title}</h2>
+        <RevealText className="h1" text={download.title} />
         <Lede text={content.lede} />
         <p className="hero__actions end__actions">
           <span className="jack jack--end" data-jack="" data-jack-end="" />

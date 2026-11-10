@@ -7,6 +7,9 @@ import { pages, site } from '@/content'
 import { rootMetadata, rootViewport } from '@/lib/seo/metadata'
 import '@/styles/site.css'
 import '@/styles/alive.css'
+import '@/styles/motion.css'
+import '@/styles/home-media.css'
+import '@/styles/interactive.css'
 
 export const metadata: Metadata = rootMetadata
 

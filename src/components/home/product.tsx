@@ -1,6 +1,5 @@
 // The home sections that show the product itself: the board, the moving screens, the live tiles,
 // the setup guide, the photo the model read and the answer with its sources
-import Link from 'next/link'
 import type { ReactNode } from 'react'
 import type { VignetteContent } from '@/content/vignettes.types'
 import type { Img } from '@/content/types'
@@ -10,6 +9,9 @@ import type {
 import { pageHref } from '@/content'
 import { Jack } from '@/components/ui/Jack'
 import { Lede } from '@/components/ui/Lede'
+import { RevealText } from '@/components/ui/RevealText'
+import { ArrowLink } from '@/components/ui/Buttons'
+import { SwapStack } from '@/components/media/SwapStack'
 import { ApprovalCard, DocumentIngest, HoursDial, PhotoScan, RoutingMap, SourceScores } from '@/components/vignettes'
 import { RISE } from '@/lib/style'
 import { PageMore, SizedImage } from './parts'
@@ -21,7 +23,7 @@ export function BoardReveal({ content }: { content: BoardContent }) {
     <section className="night reveal" id="board">
       <Jack y={12} x={58} />
       <div className="wrap reveal__top">
-        <h2 className="h2">{content.title}</h2>
+        <RevealText as="h2" className="h2" text={content.title} />
         <div className="reveal__legend">
           <p>{legend.board}</p>
           <p><span className="lamp lamp--live"></span>{legend.live}</p>
@@ -72,7 +74,7 @@ interface TileProps {
 
 function Tile({ content, span, children }: TileProps) {
   return (
-    <div className={span ? `tile tile--${span}` : 'tile'} {...RISE}><h3>{content.title}</h3>{children}<Link href={pageHref(content.link.slug)}>{content.link.label}</Link></div>
+    <div className={span ? `tile tile--${span}` : 'tile'} {...RISE}><h3>{content.title}</h3>{children}<ArrowLink href={pageHref(content.link.slug)}>{content.link.label}</ArrowLink></div>
   )
 }
 
@@ -89,7 +91,7 @@ export function LiveTiles({ content, vignettes }: LiveTilesProps) {
       <Jack y={6} />
       <div className="wrap">
         <div className="block__head" {...RISE}>
-          <h2 className="h2">{content.title}</h2>
+          <RevealText as="h2" className="h2" text={content.title} />
           <Lede text={content.lede} />
         </div>
         <div className="tilewall">
@@ -105,13 +107,13 @@ export function LiveTiles({ content, vignettes }: LiveTilesProps) {
   )
 }
 
-/** Setup in nine steps; the screenshot beside them follows the step in view (data-step) */
+/** Setup in nine steps; the screenshot beside them follows the step in view (data-step), rising in from below */
 export function SetupGuide({ content }: { content: SetupGuideContent }) {
   return (
     <section className="label guide" id="setup">
       <Jack y={2} />
       <div className="wrap guide__head">
-        <h2 className="h2">{content.title}</h2>
+        <RevealText as="h2" className="h2" text={content.title} />
         <Lede text={content.lede} />
         <p><PageMore link={content.more} /></p>
       </div>
@@ -121,11 +123,8 @@ export function SetupGuide({ content }: { content: SetupGuideContent }) {
             <li key={step.title} data-step={i}><h3>{step.title}</h3><p>{step.text}</p><img className="guide__inline win" src={step.image} alt="" loading="lazy" /></li>
           ))}
         </ol>
-        <div className="guide__stage" aria-hidden="true">
-          {content.steps.map((step, i) => (
-            <img key={step.title} className={i ? 'win' : 'win is-on'} src={step.image} alt="" loading="lazy" />
-          ))}
-        </div>
+        {/* lib/site.js moves .is-on through .guide__stage img as the steps scroll by */}
+        <SwapStack className="guide__stage" itemClassName="win" hidden images={content.steps.map((step) => ({ src: step.image, alt: '' }))} />
       </div>
     </section>
   )
@@ -145,7 +144,7 @@ export function PhotoSeen({ content }: { content: PhotoSeenContent }) {
           ))}
         </figure>
         <div className="seen__copy">
-          <h2 className="h2">{content.title}</h2>
+          <RevealText as="h2" className="h2" text={content.title} />
           <Lede text={content.lede} />
           <blockquote className="seen__quote">
             <p>{content.quote.text}</p>
@@ -164,7 +163,7 @@ export function Receipts({ content }: { content: ReceiptsContent }) {
     <section className="panel receipts" id="receipts">
       <Jack y={10} />
       <div className="wrap">
-        <h2 className="h2 receipts__title">{content.title}</h2>
+        <RevealText as="h2" className="h2 receipts__title" text={content.title} />
         <Lede text={content.lede} />
         <PageMore link={content.more} />
       </div>

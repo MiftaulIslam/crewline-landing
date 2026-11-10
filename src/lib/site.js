@@ -94,7 +94,8 @@ export function initSite() {
   let queued = false
   const paintScroll = () => {
     paintCord()
-    bar.classList.toggle('is-solid', scrollY > innerHeight * 0.6)
+    // The header floats as a frosted bar as soon as the page moves
+    bar.classList.toggle('is-solid', scrollY > 24)
     paintRing()
   }
   const onScroll = () => {
@@ -145,7 +146,7 @@ export function initSite() {
       riser.unobserve(e.target)
     }
   }, { rootMargin: '0px 0px -8% 0px' }))
-  $$('[data-rise]').forEach((el) => riser.observe(el))
+  $$('[data-rise], [data-reveal]').forEach((el) => riser.observe(el))
 
   // ------------------------------------------------- lists where a photo follows the pointer
   $$('.float').forEach((float) => {

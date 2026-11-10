@@ -4,6 +4,9 @@ import type { ApproveRotateContent, FlowsRotateContent, HomeLanguagesContent, To
 import { Jack } from '@/components/ui/Jack'
 import { Lede } from '@/components/ui/Lede'
 import { RichText } from '@/components/ui/RichText'
+import { RevealText } from '@/components/ui/RevealText'
+import { SwapStack } from '@/components/media/SwapStack'
+import { TabRail } from '@/components/media/TabRail'
 import { PageMore, SlideStack, Tab, screenImages } from './parts'
 
 /** Waiting, then approved */
@@ -15,7 +18,7 @@ export function FlowsRotate({ content }: { content: FlowsRotateContent }) {
     <section className="night flows" id="flows" data-rotate="4500">
       <Jack y={10} />
       <div className="wrap">
-        <h2 className="flows__title">{content.title}</h2>
+        <RevealText as="h2" className="flows__title" text={content.title} />
         <p className="flows__rule"><RichText text={content.rule} /></p>
         <p className="flows__after">{content.after}</p>
         <div className="flows__foot">
@@ -48,7 +51,7 @@ export function ApproveRotate({ content }: { content: ApproveRotateContent }) {
           <SlideStack images={screenImages(content.screens)} />
         </div>
         <div>
-          <h2 className="h2">{content.title}</h2>
+          <RevealText as="h2" className="h2" text={content.title} />
           <Lede text={content.lede} />
           <PageMore link={content.more} />
           <div className="tabs" role="tablist" aria-label={content.tabsLabel}>
@@ -81,23 +84,22 @@ export function LanguagesRotate({ content }: { content: HomeLanguagesContent }) 
   )
 }
 
-/** The four tools, each tab showing its screen */
+/** The four tools, each tab showing its screen: a rail slides to the tab, the screen rises in from below */
 export function ToolsRotate({ content }: { content: ToolsContent }) {
   return (
     <section className="night tools" id="tools" data-rotate="5000">
       <Jack y={10} />
       <div className="wrap tools__grid">
         <div>
-          <h2 className="h2">{content.title}</h2>
+          <RevealText as="h2" className="h2" text={content.title} />
           <div className="tools__list" role="tablist" aria-label={content.tabsLabel}>
             {content.items.map((tool, i) => (
               <Tab key={tool.title} on={i === 0}><strong>{tool.title}</strong><span>{tool.text}</span></Tab>
             ))}
+            <TabRail />
           </div>
         </div>
-        <div className="stack">
-          <SlideStack images={content.items.map((tool) => tool.image)} />
-        </div>
+        <SwapStack className="stack" itemClassName="win" slide images={content.items.map((tool) => tool.image)} />
       </div>
     </section>
   )

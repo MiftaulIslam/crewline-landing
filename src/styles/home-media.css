@@ -1,0 +1,181 @@
+/* Home sections' media motion: pictures that swap bottom to top, the agent and hardware rows, the
+   tools' sliding rail and the model ticker. Loads after site.css and overrides it where these
+   sections replaced its rules. Animates transform, opacity and colour only. */
+
+/* ------------------------------------------------------------------ swap stacks
+   One picture shown at a time (.is-on). The arriving one rises in from below; the one leaving
+   lifts a little and fades. The doubled .swap outranks site.css's .stack/.guide__stage rules.
+   .is-on turns its transition off so the keyframes, not a transition, bring it in. */
+.swap { display: grid; }
+.swap.swap > .swap__item {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translate3d(0, -6%, 0);
+  transition: opacity .4s linear, transform .6s var(--ease);
+}
+.swap.swap > .swap__item.is-on {
+  z-index: 1;
+  opacity: 1;
+  transform: none;
+  transition: none;
+  animation: swap-in .75s var(--ease) both;
+}
+@keyframes swap-in {
+  from { opacity: 0; transform: translate3d(0, 10%, 0); }
+  55% { opacity: 1; }
+}
+
+/* The crew screens and hardware photos, replacing site.css's .crew__frame and .kit__frame */
+.kit__photos > .swap__item { width: 100%; aspect-ratio: 4 / 4.4; object-fit: cover; border-radius: 8px; }
+
+/* ------------------------------------------------------------------ the six agents
+   The active row (pointed at, focused or last pointed at): its colour square grows into a bar,
+   the title and line step right, and the row takes a wash of the agent's colour. */
+.crew__list li { position: relative; isolation: isolate; }
+.crew__list li::before { transform-origin: 50% 0; transition: transform .45s var(--ease); }
+.crew__list li::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 -14px;
+  border-radius: 8px;
+  background: var(--a);
+  opacity: 0;
+  transition: opacity .3s linear;
+}
+.crew__list strong, .crew__list li > span { transition: transform .45s var(--ease), color .2s linear; }
+.crew__list li > span { transition-delay: .04s; }
+.crew__list li.is-on::before { transform: scale(.43, 3.4); }
+.crew__list li.is-on::after { opacity: .1; }
+.crew__list li.is-on strong, .crew__list li.is-on > span { transform: translateX(6px); }
+.crew__list li.is-on > span { color: var(--ink); }
+.crew__list li:focus-visible { outline-offset: 2px; }
+
+/* ------------------------------------------------------------------ hardware tiers
+   An icon per tier in a small brass-edged box. The active row's icon box lights amber, a line
+   draws across its top edge and the title steps right. */
+.kit__list li { position: relative; grid-template-columns: 52px minmax(0, 1fr); column-gap: 20px; }
+.kit__list li::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--lamp);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform .55s var(--ease);
+}
+.swaplist__icon {
+  grid-row: span 2;
+  align-self: start;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-top: 2px;
+  border: 1px solid rgb(244 241 232 / .2);
+  border-radius: 8px;
+  color: var(--label-2);
+  transition: color .2s linear, border-color .2s linear;
+}
+.swaplist__icon svg { transition: transform .45s var(--ease); }
+.kit__list strong { transition: color .15s linear, transform .45s var(--ease); }
+.kit__list li.is-on::after { transform: scaleX(1); }
+.kit__list li.is-on .swaplist__icon { color: var(--lamp); border-color: var(--lamp); }
+.kit__list li.is-on .swaplist__icon svg { transform: translateY(-2px) scale(1.06); }
+.kit__list li.is-on strong { color: var(--lamp); transform: translateX(6px); }
+
+/* ------------------------------------------------------------------ the four tools
+   A cord-red rail slides to the tab on (TabRail); without script the tab's own border marks it.
+   Tabs off are dimmer; pointing at one or turning to it brightens it and steps it right. */
+.tools__list { position: relative; }
+.tabrail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 1px;
+  background: var(--cord);
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.tabrail.is-ready { transition: transform .5s var(--ease); }
+.tools__list.has-rail button.is-on { border-left-color: rgb(244 241 232 / .2); }
+.tools__list button strong, .tools__list button span { transition: color .2s linear, transform .45s var(--ease); }
+.tools__list button strong { color: rgb(244 241 232 / .72); }
+.tools__list button span { color: rgb(197 201 198 / .72); transition-delay: .04s; }
+.tools__list button:hover strong, .tools__list button:focus-visible strong { color: var(--label); transform: translateX(4px); }
+.tools__list button.is-on strong { color: var(--label); transform: translateX(8px); }
+.tools__list button.is-on span { color: var(--label-2); transform: translateX(8px); }
+
+/* ------------------------------------------------------------------ the tile links */
+.tile > .more { justify-self: start; }
+
+/* ------------------------------------------------------------------ the model ticker
+   Each name with a chip for what it does; a brass-ringed jack between names. It pauses while
+   pointed at. The track's 24px gap matches the drift keyframes' half-gap offset, so it loops clean. */
+.ticker__track { gap: 24px; animation-duration: 72s; }
+.ticker:hover .ticker__track { animation-play-state: paused; }
+.ticker__item { display: flex; align-items: center; gap: 16px; padding-right: 8px; }
+.ticker__item::after {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-left: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 2px var(--brass);
+}
+.ticker__name {
+  font-stretch: 62%;
+  font-weight: 500;
+  font-size: clamp(2.4rem, 4.6vw, 4.6rem);
+  line-height: 1;
+  color: var(--label-2);
+  white-space: nowrap;
+  transition: color .2s linear;
+}
+.ticker__role {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 10px;
+  border: 1px solid rgb(244 241 232 / .22);
+  border-radius: 999px;
+  font-size: .9rem;
+  line-height: 1.2;
+  color: var(--label-2);
+  white-space: nowrap;
+  transition: color .2s linear, border-color .2s linear;
+}
+.ticker__role svg { flex: none; color: var(--brass); transition: color .2s linear; }
+.ticker__item:hover .ticker__name { color: var(--label); }
+.ticker__item:hover .ticker__role { color: var(--label); border-color: var(--lamp); }
+.ticker__item:hover .ticker__role svg { color: var(--lamp); }
+
+/* Narrow screens: one column, the pictures under the list, and no list hover. The rows'
+   wash keeps inside the page gutter. */
+@media (max-width: 960px) {
+  .crew__list li::after { inset-inline: -8px; }
+  .swaplist__icon { width: 44px; height: 44px; }
+  .kit__list li { grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; }
+  .ticker__item { gap: 12px; }
+  .ticker__item::after { margin-left: 20px; }
+}
+
+/* Reduced motion: every state shows at once, with no movement */
+@media (prefers-reduced-motion: reduce) {
+  .swap.swap > .swap__item { transform: none; transition: opacity .2s linear; }
+  .swap.swap > .swap__item.is-on { animation: none; }
+  .crew__list li::before, .crew__list strong, .crew__list li > span,
+  .kit__list li::after, .swaplist__icon svg, .kit__list strong,
+  .tools__list button strong, .tools__list button span { transition-property: color, opacity, border-color; }
+  .crew__list li.is-on strong, .crew__list li.is-on > span,
+  .kit__list li.is-on .swaplist__icon svg, .kit__list li.is-on strong,
+  .tools__list button:hover strong, .tools__list button:focus-visible strong,
+  .tools__list button.is-on strong, .tools__list button.is-on span { transform: none; }
+  .tabrail.is-ready { transition: none; }
+}

@@ -165,6 +165,8 @@ export interface ToolsContent {
 
 /** A measured figure, with an optional unit set smaller after the value */
 export interface Figure {
+  /** What the figure measures; the section picks its icon from this */
+  id: 'solved' | 'speed' | 'cited' | 'cloud'
   label: string
   value: string
   unit?: string
@@ -191,12 +193,16 @@ export interface HomeCompareContent {
   more: PageLink
 }
 
+/** What a model does in the app; the ticker shows a glyph for it */
+export type ModelRole = 'writes' | 'hears' | 'speaks' | 'reads' | 'searches'
+
 export interface HardwareContent {
   title: string
-  items: TitledText[]
+  /** The three tiers; id picks the tier's icon */
+  items: (TitledText & { id: 'light' | 'balanced' | 'best' })[]
   more: PageLink
   images: Img[]
-  models: { label: string; names: string[] }
+  models: { label: string; names: string[]; roles: Record<string, ModelRole>; roleLabels: Record<ModelRole, string> }
 }
 
 export interface HomeDownloadContent {
@@ -232,6 +238,6 @@ export interface HomeContent {
   download: HomeDownloadContent
 }
 
-/** HomeContent as TypeScript reads it from JSON, where page slugs are plain strings */
-type FromJson<T> = T extends PageSlug ? string : T extends (infer U)[] ? FromJson<U>[] : T extends object ? { [K in keyof T]: FromJson<T[K]> } : T
+/** HomeContent as TypeScript reads it from JSON, where page slugs and other string unions are plain strings */
+type FromJson<T> = T extends string ? string : T extends (infer U)[] ? FromJson<U>[] : T extends object ? { [K in keyof T]: FromJson<T[K]> } : T
 export type HomeJson = FromJson<HomeContent>

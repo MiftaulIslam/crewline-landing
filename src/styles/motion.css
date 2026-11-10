@@ -1,0 +1,137 @@
+/* Motion and hover for the site's shared parts: buttons, arrow links, the header, text reveals.
+   Feature-specific motion lives beside its feature (alive.css and the home sections' styles).
+   Everything here animates transform, opacity or colour, with the site's one easing. */
+
+/* ------------------------------------------------------------------ buttons
+   One button for the whole site. A second colour rises from the bottom on hover and the label
+   lifts a little with it. */
+.btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease);
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--label);
+  transform: translateY(101%);
+  transition: transform .35s var(--ease);
+}
+.btn__label { display: inline-block; transition: transform .25s var(--ease); }
+.btn:hover::before, .btn:focus-visible::before { transform: translateY(0); }
+.btn:hover .btn__label, .btn:focus-visible .btn__label { transform: translateY(-1px); }
+.btn:hover { background: var(--lamp); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+
+/* Outlined buttons fill with amber instead of cream */
+.btn--line::before, .btn--small::before { background: var(--lamp); }
+.btn--line:hover, .btn--small:hover { background: none; color: var(--ink); box-shadow: inset 0 0 0 1px var(--lamp); }
+
+/* ------------------------------------------------------------------ arrow links */
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.more__text {
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px;
+  padding-bottom: 2px;
+  transition: background-size .35s var(--ease);
+}
+.more:hover .more__text, .more:focus-visible .more__text { animation: more-line .55s var(--ease); }
+@keyframes more-line {
+  0% { background-size: 100% 1px; background-position: 100% 100%; }
+  45% { background-size: 0 1px; background-position: 100% 100%; }
+  46% { background-size: 0 1px; background-position: 0 100%; }
+  100% { background-size: 100% 1px; background-position: 0 100%; }
+}
+.more__arrow { flex: none; transition: transform .3s var(--ease); }
+.more:hover .more__arrow, .more:focus-visible .more__arrow { transform: translateX(4px); }
+
+/* ------------------------------------------------------------------ the header
+   Full width over the hero; once you scroll it shrinks to a floating bar of frosted glass. */
+.bar {
+  top: 0;
+  left: 50%;
+  right: auto;
+  width: 100%;
+  transform: translateX(-50%);
+  border: 1px solid transparent;
+  transition: width .45s var(--ease), top .45s var(--ease), border-radius .45s var(--ease), background-color .3s linear, border-color .3s linear, box-shadow .3s linear, padding .45s var(--ease);
+}
+.bar.is-solid {
+  top: 12px;
+  width: min(1180px, calc(100% - 32px));
+  height: 56px;
+  padding: 0 12px 0 20px;
+  border-radius: 16px;
+  background: rgb(14 23 40 / .62);
+  border-color: rgb(244 241 232 / .14);
+  box-shadow: 0 16px 40px -20px rgb(8 12 20 / .7);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+}
+.bar.is-solid .mega { top: 76px; }
+.bar.is-open, .bar:has(.mega.is-open), .bar:has(.bar__item:hover) { background: rgb(14 23 40 / .92); }
+
+/* Menu items draw an amber underline from the left */
+.bar__nav > a, .bar__item > button { position: relative; }
+.bar__nav > a::after, .bar__item > button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(50% - 14px);
+  height: 2px;
+  border-radius: 1px;
+  background: var(--lamp);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s var(--ease);
+}
+.bar__nav > a:hover::after, .bar__nav > a:focus-visible::after,
+.bar__item:hover > button::after, .bar__item > button[aria-expanded="true"]::after { transform: scaleX(1); }
+.bar__nav > a:hover { text-decoration: none; }
+.mega__list a { position: relative; transition: transform .25s var(--ease); }
+.mega__list a:hover, .mega__list a:focus-visible { transform: translateX(4px); }
+
+/* ------------------------------------------------------------------ text reveals
+   Words rise out of a mask, one after another, the first time a heading scrolls into view. */
+.rt__mask { display: inline-block; overflow: hidden; vertical-align: top; padding: .04em 0 .2em; margin: -.04em 0 -.2em; }
+.rt__word { display: inline-block; }
+.js .rt .rt__word { transform: translateY(105%); transition: transform .7s var(--ease); }
+.js .rt.in .rt__word { transform: none; }
+
+/* Content rising into view: a little further and softer than before */
+.js [data-rise] { transform: translateY(24px); transition: opacity .6s linear, transform .8s var(--ease); }
+
+/* ------------------------------------------------------------------ screens that change
+   The stepper's screenshot arrives from below; the one it replaces lifts away and fades. */
+.stepper__stage img { opacity: 0; transform: translateY(-28px); transition: opacity .4s linear, transform .5s var(--ease); }
+.stepper__stage img.is-on { opacity: 1; transform: none; animation: swap-up .65s var(--ease); }
+@keyframes swap-up { from { opacity: 0; transform: translateY(56px); } }
+.stepper button { transition: opacity .2s linear, transform .3s var(--ease); }
+.stepper button:hover { opacity: .85; transform: translateX(4px); }
+.stepper button.is-on:hover { opacity: 1; }
+
+@media (max-width: 960px) {
+  .bar.is-solid { top: 8px; width: calc(100% - 16px); padding: 0 8px 0 14px; }
+  .bar.is-solid.is-open { border-radius: 16px 16px 0 0; }
+  .bar.is-open .bar__nav { top: 72px; }
+  .bar__nav > a::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn::before, .btn__label, .more__arrow, .bar, .mega__list a { transition: none; }
+  .more:hover .more__text { animation: none; }
+  .js .rt .rt__word { transform: none; transition: none; }
+  .stepper__stage img, .stepper__stage img.is-on, .stepper button { transition: none; animation: none; transform: none; }
+}

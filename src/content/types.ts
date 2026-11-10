@@ -104,6 +104,8 @@ export interface SiteContent {
   }
   keepReading: string
   nextLabel: string
+  /** Labels of the chat that answers the "doesn't do yet" questions */
+  chat: { agent: string; you: string; thinking: string; ask: string; label: string }
 }
 
 // ------------------------------------------------------------------ shared sections

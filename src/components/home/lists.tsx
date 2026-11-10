@@ -1,12 +1,14 @@
 // The home page's hover lists: rows that show a photo or swap a picture when pointed at.
-// lib/site.js drives the floating photo (data-float); CSS swaps the crew and hardware pictures.
+// lib/site.js drives the floating photo (data-float); HoverSwapList swaps the crew and hardware pictures.
 import Link from 'next/link'
-import type { HoverListContent, TitledText } from '@/content/types'
-import type { CrewContent, HardwareContent, ShopsContent } from '@/content/home.types'
+import type { HoverListContent } from '@/content/types'
+import type { CrewContent, HardwareContent, ModelRole, ShopsContent } from '@/content/home.types'
 import { pageHref } from '@/content'
 import { Jack } from '@/components/ui/Jack'
 import { Lede } from '@/components/ui/Lede'
-import { AppWindow, Photo } from '@/components/ui/Media'
+import { RevealText } from '@/components/ui/RevealText'
+import { HoverSwapList } from '@/components/media/HoverSwapList'
+import { RoleGlyph, TierIcon } from '@/components/icons/hardware'
 import { RISE, vars } from '@/lib/style'
 import { PageMore } from './parts'
 
@@ -20,7 +22,7 @@ export function FiveQuestions({ content }: { content: HoverListContent }) {
       <Jack y={16} />
       <Jack y={97} />
       <div className="wrap">
-        <h2 className="h2 asks__title">{content.title}</h2>
+        <RevealText as="h2" className="h2 asks__title" text={content.title} />
         <Lede text={content.lede} className="lede asks__lede" />
         <ol className="asks__list">
           {content.items.map((item, i) => (
@@ -45,7 +47,7 @@ export function Shops({ content }: { content: ShopsContent }) {
       <Jack y={96} />
       <div className="wrap">
         <div className="block__head" {...RISE}>
-          <h2 className="h2">{content.title}</h2>
+          <RevealText as="h2" className="h2" text={content.title} />
           <Lede text={content.lede} />
         </div>
         <div className="shops">
@@ -58,71 +60,57 @@ export function Shops({ content }: { content: ShopsContent }) {
   )
 }
 
-interface SwapListProps {
-  className: string
-  items: TitledText[]
-  /** A colour per row, set as --a */
-  accents?: string[]
-}
-
-/** Focusable rows; pointing at or focusing the nth row shows the nth picture beside the list */
-function SwapList({ className, items, accents }: SwapListProps) {
-  return (
-    <ul className={className}>
-      {items.map((item, i) => {
-        const accent = accents?.[i]
-        return (
-          <li key={item.title} tabIndex={0} style={accent ? vars({ '--a': accent }) : undefined}><strong>{item.title}</strong><span>{item.text}</span></li>
-        )
-      })}
-    </ul>
-  )
-}
-
-/** The six agents, each row showing that agent's screen */
+/** The six agents; pointing at a row brings that agent's screen up from below */
 export function CrewSection({ content }: { content: CrewContent }) {
   return (
     <section className="panel crew" id="crew">
       <Jack y={12} />
-      <div className="wrap crew__grid">
-        <div>
-          <h2 className="h2">{content.title}</h2>
-          <SwapList className="crew__list" items={content.items} accents={AGENT_ACCENTS} />
-          <PageMore link={content.more} />
-        </div>
-        <div className="crew__frame">
-          {content.images.map((image) => (
-            <AppWindow key={image.src} image={image} />
-          ))}
-        </div>
-      </div>
+      <HoverSwapList
+        className="wrap crew__grid"
+        listClassName="crew__list"
+        rows={content.items.map((item, i) => ({ ...item, style: vars({ '--a': AGENT_ACCENTS[i] }) }))}
+        images={content.images}
+        stackClassName="crew__screens"
+        imageClassName="win"
+        head={<RevealText as="h2" className="h2" text={content.title} />}
+        foot={<PageMore link={content.more} />}
+      />
     </section>
   )
 }
 
-/** The three hardware tiers, each row showing a photo, and a ticker of the models it runs */
+/** Names in the ticker, each followed by what it does */
+function TickerItem({ name, role, label }: { name: string; role: ModelRole; label: string }) {
+  return (
+    <div className="ticker__item">
+      <b className="ticker__name">{name}</b>
+      <small className="ticker__role"><RoleGlyph role={role} />{label}</small>
+    </div>
+  )
+}
+
+/** The three hardware tiers, each row bringing up a photo, and a ticker of the models it runs */
 export function HardwareSection({ content }: { content: HardwareContent }) {
   const { models } = content
+  const described = models.names.map((name) => `${name} (${models.roleLabels[models.roles[name]]})`)
   return (
     <section className="night kit" id="hardware">
       <Jack y={10} />
-      <div className="wrap kit__grid">
-        <div>
-          <h2 className="h2">{content.title}</h2>
-          <SwapList className="kit__list" items={content.items} />
-          <PageMore link={content.more} />
-        </div>
-        <div className="kit__frame">
-          {content.images.map((image) => (
-            <Photo key={image.src} image={image} />
-          ))}
-        </div>
-      </div>
-      <div className="ticker" aria-label={`${models.label}: ${models.names.join(', ')}`}>
+      <HoverSwapList
+        className="wrap kit__grid"
+        listClassName="kit__list"
+        rows={content.items.map((item) => ({ title: item.title, text: item.text, icon: <TierIcon id={item.id} /> }))}
+        images={content.images}
+        stackClassName="kit__photos"
+        initial={2}
+        head={<RevealText as="h2" className="h2" text={content.title} />}
+        foot={<PageMore link={content.more} />}
+      />
+      <div className="ticker" aria-label={`${models.label}: ${described.join(', ')}`}>
         <div className="ticker__track" aria-hidden="true">
           {/* Twice over, so the strip loops without a gap */}
           {[...models.names, ...models.names].map((name, i) => (
-            <span key={i}>{name}</span>
+            <TickerItem key={i} name={name} role={models.roles[name]} label={models.roleLabels[models.roles[name]]} />
           ))}
         </div>
       </div>

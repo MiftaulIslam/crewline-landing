@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { PageEntry, SiteContent } from '@/content/types'
 import { pageHref } from '@/content'
 import { BrandMark } from './BrandMark'
+import { Button } from '@/components/ui/Buttons'
 
 interface SiteHeaderProps {
   site: SiteContent
@@ -50,9 +51,9 @@ export function SiteHeader({ site, pages }: SiteHeaderProps) {
           </Link>
         ))}
       </nav>
-      <Link className="btn btn--small" href="/#download">
+      <Button variant="small" href="/#download">
         {header.download}
-      </Link>
+      </Button>
       <button className="bar__menu" type="button" aria-expanded="false">
         {header.menuLabel}
       </button>
