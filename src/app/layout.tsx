@@ -10,6 +10,7 @@ import '@/styles/alive.css'
 import '@/styles/motion.css'
 import '@/styles/home-media.css'
 import '@/styles/interactive.css'
+import '@/styles/mobile.css'
 
 export const metadata: Metadata = rootMetadata
 

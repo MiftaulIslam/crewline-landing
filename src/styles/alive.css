@@ -404,14 +404,6 @@ mark { padding: 0 3px; border-radius: 3px; background: rgb(245 181 60 / .28); co
 }
 @media (max-width: 960px) {
   .bar { gap: 8px; }
-  .bar__menu { display: inline-flex; align-items: center; padding: 8px 12px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgb(244 241 232 / .5); font-size: .92rem; }
-  .bar.is-open { background: var(--ink); }
-  .bar.is-open .bar__nav { position: fixed; inset: 64px 0 0 0; display: block; height: auto; padding: 16px 20px 40px; background: var(--ink); overflow: auto; }
-  .bar.is-open .bar__item { display: block; height: auto; }
-  .bar.is-open .bar__item > button { display: none; }
-  .bar.is-open .mega { position: static; display: block; padding: 0; border: 0; box-shadow: none; }
-  .bar.is-open .mega__list { grid-template-columns: minmax(0, 1fr); }
-  .bar.is-open .bar__nav > a { display: block; height: auto; padding: 12px 0; font-weight: 500; }
   .hero2 { min-height: 0; padding-block: 104px 56px; }
   .hero2__grid, .split, .said, .stepper, .al-dial, .al-hours, .al-scan { grid-template-columns: minmax(0, 1fr); }
   .split--flip > :first-child { order: 0; }

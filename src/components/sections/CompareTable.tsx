@@ -22,9 +22,13 @@ export function CompareTable({ content }: { content: CompareContent }) {
               <tr key={r.label}>
                 <th>{r.label}</th>
                 {r.values.map((v, i) => (
-                  <td key={i}>{v}</td>
+                  <td key={i} data-label={content.columns[i]}>
+                    {v}
+                  </td>
                 ))}
-                <td className="us">{r.ours}</td>
+                <td className="us" data-label={content.ours}>
+                  {r.ours}
+                </td>
               </tr>
             ))}
           </tbody>

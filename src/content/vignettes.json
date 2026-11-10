@@ -37,6 +37,7 @@
     ]
   },
   "routing": {
+    "swipe": "Swipe sideways to see the whole map",
     "label": "A conversation moves from a channel to the Front desk, to the right agent, past the Reviewer and out as a reply. Anything that needs a person goes to your team.",
     "nodes": {
       "phone": "Phone line",

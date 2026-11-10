@@ -80,7 +80,7 @@
   backdrop-filter: blur(16px) saturate(1.4);
 }
 .bar.is-solid .mega { top: 76px; }
-.bar.is-open, .bar:has(.mega.is-open), .bar:has(.bar__item:hover) { background: rgb(14 23 40 / .92); }
+.bar:has(.mega.is-open), .bar:has(.bar__item:hover) { background: rgb(14 23 40 / .92); }
 
 /* Menu items draw an amber underline from the left */
 .bar__nav > a, .bar__item > button { position: relative; }
@@ -144,8 +144,6 @@
 @media (max-width: 960px) {
   .asks__list--icons li { grid-template-columns: 52px minmax(0, 1fr); }
   .bar.is-solid { top: 8px; width: calc(100% - 16px); padding: 0 8px 0 14px; }
-  .bar.is-solid.is-open { border-radius: 16px 16px 0 0; }
-  .bar.is-open .bar__nav { top: 72px; }
   .bar__nav > a::after { display: none; }
 }
 

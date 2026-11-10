@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { PageEntry, SiteContent } from '@/content/types'
 import { pageHref } from '@/content'
 import { BrandMark } from './BrandMark'
+import { MobileNav } from './MobileNav'
 import { Button } from '@/components/ui/Buttons'
 
 interface SiteHeaderProps {
@@ -54,9 +55,7 @@ export function SiteHeader({ site, pages }: SiteHeaderProps) {
       <Button variant="small" href="/#download">
         {header.download}
       </Button>
-      <button className="bar__menu" type="button" aria-expanded="false">
-        {header.menuLabel}
-      </button>
+      <MobileNav site={site} pages={pages} />
     </header>
   )
 }

@@ -35,6 +35,8 @@ export interface RoutingContent {
   label: string
   /** The label on each node */
   nodes: Record<RoutingNode, string>
+  /** Shown above the map on screens too narrow for all of it */
+  swipe: string
   routes: {
     /** The customer's message, as shown under the map */
     message: string

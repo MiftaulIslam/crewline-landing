@@ -42,6 +42,7 @@ const dwellFor = (answer: string) => Math.min(MAX_DWELL, 3200 + answer.length * 
  */
 export function LimitsChatLive({ items, chat }: { items: Question[]; chat: ChatLabels }) {
   const rootRef = useRef<HTMLDivElement>(null)
+  const stripRef = useRef<HTMLOListElement>(null)
   const askRef = useRef<((i: number) => void) | null>(null)
   const [view, setView] = useState<View>({ at: 0, phase: 'done', typed: items[0]?.answer.length ?? 0, dwell: 0, user: false, run: 0 })
 
@@ -169,6 +170,16 @@ export function LimitsChatLive({ items, chat }: { items: Question[]; chat: ChatL
     }
   }, [items])
 
+  // On phones the questions are a sideways strip: bring the current one into view, moving
+  // only the strip, never the page
+  useEffect(() => {
+    const strip = stripRef.current
+    const chip = strip?.children[view.at] as HTMLElement | undefined
+    if (!strip || !chip || strip.scrollWidth <= strip.clientWidth) return
+    const left = chip.offsetLeft - (strip.clientWidth - chip.offsetWidth) / 2
+    strip.scrollTo({ left, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+  }, [view.at])
+
   const q = items[view.at]
   if (!q) return null
   const typing = view.phase === 'typing'
@@ -177,7 +188,7 @@ export function LimitsChatLive({ items, chat }: { items: Question[]; chat: ChatL
 
   return (
     <div className="lchat" ref={rootRef}>
-      <ol className="lchat__qs">
+      <ol className="lchat__qs" ref={stripRef}>
         {items.map((item, i) => {
           const on = i === view.at && view.phase !== 'idle'
           return (

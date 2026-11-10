@@ -1,0 +1,211 @@
+/* Phones first. Loaded last.
+   The menu drawer, the "doesn't do yet" chips and the routing map's swipe hint are styled for a
+   phone and then changed for wider screens with min-width queries. The tables were designed for
+   the desktop in site.css, so turning their rows into cards is a max-width override. */
+
+/* ------------------------------------------------------------------ menu button */
+.bar__menu {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin-right: -6px;
+  border-radius: 12px;
+  color: inherit;
+  transition: background-color .2s linear;
+}
+.bar__menu:hover, .bar__menu:focus-visible { background: rgb(244 241 232 / .12); }
+.bar__burger { display: grid; gap: 5px; width: 20px; }
+.bar__burger i { display: block; height: 1.75px; border-radius: 2px; background: currentColor; transition: transform .3s var(--ease); }
+.bar__burger i:nth-child(2) { width: 14px; justify-self: end; }
+.bar__menu:hover .bar__burger i:nth-child(2) { transform: scaleX(1.43); transform-origin: right; }
+
+/* ------------------------------------------------------------------ drawer */
+.drawer {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear .45s;
+}
+.drawer.is-open { visibility: visible; pointer-events: auto; transition: none; }
+.drawer__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgb(8 12 20 / .58);
+  opacity: 0;
+  transition: opacity .35s linear;
+}
+.drawer.is-open .drawer__scrim { opacity: 1; }
+.drawer__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(88vw, 400px);
+  background: var(--ink);
+  color: var(--label);
+  box-shadow: -24px 0 56px -24px rgb(8 12 20 / .8);
+  transform: translateX(100%);
+  transition: transform .45s var(--ease);
+}
+.drawer.is-open .drawer__panel { transform: none; }
+.drawer__head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 14px 0 20px;
+  padding-top: env(safe-area-inset-top);
+  border-bottom: 1px solid rgb(244 241 232 / .12);
+}
+.drawer__brand { display: inline-flex; align-items: center; gap: 12px; font-stretch: 118%; font-weight: 500; font-size: 1.05rem; text-decoration: none; }
+.drawer__close { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; color: inherit; transition: background-color .2s linear, transform .3s var(--ease); }
+.drawer__close:hover, .drawer__close:focus-visible { background: rgb(244 241 232 / .12); }
+.drawer__close:hover { transform: rotate(90deg); }
+
+.drawer__nav {
+  flex: 1;
+  display: grid;
+  align-content: start;
+  gap: 28px;
+  padding: 24px 20px 32px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.drawer__nav h2 { margin: 0 0 6px; color: var(--label-2); font-size: .88rem; font-weight: 500; letter-spacing: 0; }
+.drawer__nav ul { display: grid; margin: 0; padding: 0; list-style: none; }
+.drawer__nav li { opacity: 0; transform: translateX(16px); transition: opacity .3s linear, transform .45s var(--ease); }
+.drawer.is-open .drawer__nav li { opacity: 1; transform: none; }
+.drawer__nav a {
+  display: grid;
+  gap: 2px;
+  min-height: 44px;
+  padding: 9px 0;
+  border-top: 1px solid rgb(244 241 232 / .1);
+  text-decoration: none;
+}
+.drawer__nav li:first-child a { border-top: 0; }
+.drawer__nav b { font-weight: 500; font-size: 1.08rem; transition: color .15s linear; }
+.drawer__nav span { color: var(--label-2); font-size: .9rem; line-height: 1.3; }
+.drawer__nav a:hover b, .drawer__nav a:focus-visible b { color: var(--lamp); }
+
+.drawer__foot {
+  display: grid;
+  flex: none;
+  gap: 10px;
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid rgb(244 241 232 / .12);
+}
+.drawer__foot .btn { justify-content: center; width: 100%; }
+.drawer__foot p { margin: 0; color: var(--label-2); font-size: .86rem; text-align: center; }
+
+@media (min-width: 961px) {
+  .bar__menu, .drawer { display: none; }
+}
+
+/* ------------------------------------------------------------------ "doesn't do yet" chat
+   Phones: the chat first, so an answer is never off screen, and the questions as a strip of
+   chips under it that you swipe through. From 961px: questions on the left, chat on the right
+   (interactive.css). */
+@media (max-width: 960px) {
+  .lchat { gap: 16px; }
+  .lchat__win { order: -1; }
+  .lchat__body.al-chat__body { min-height: 0; }
+  .lchat__qs {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    margin-inline: calc(var(--gutter) * -1) calc(var(--edge) * -1);
+    padding: 2px var(--edge) 6px var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter) var(--edge);
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .lchat__qs::-webkit-scrollbar { display: none; }
+  .lchat__qs li { display: flex; flex: none; width: min(74vw, 300px); scroll-snap-align: start; }
+  .lchat__q,
+  .lchat__qs li:last-child .lchat__q {
+    gap: 10px;
+    min-height: 64px;
+    padding: 14px 16px 16px;
+    border: 0;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgb(127 127 127 / .35);
+    font-size: 1rem;
+    line-height: 1.28;
+    overflow: hidden;
+  }
+  .lchat__q.is-on { box-shadow: inset 0 0 0 1.5px currentColor; }
+  .lchat__q .lchat__lamp { margin-top: .3em; }
+  .lchat__q i { top: auto; bottom: 0; height: 3px; }
+}
+
+/* ------------------------------------------------------------------ routing map
+   Too wide for a phone: it scrolls sideways, says so, and fades the edge that has more past it */
+.al-map__swipe {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: .92rem;
+  opacity: .78;
+}
+.al-map__swipe::after { content: '\2192'; animation: map-nudge 1.8s var(--ease) infinite; }
+@keyframes map-nudge { 0%, 100% { transform: none; } 50% { transform: translateX(6px); } }
+.al-mapwrap { scrollbar-width: none; overscroll-behavior-x: contain; }
+.al-mapwrap::-webkit-scrollbar { display: none; }
+.al-mapwrap.is-more-right { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent); }
+.al-mapwrap.is-more-left { -webkit-mask-image: linear-gradient(90deg, transparent, #000 56px); mask-image: linear-gradient(90deg, transparent, #000 56px); }
+.al-mapwrap.is-more-left.is-more-right { -webkit-mask-image: linear-gradient(90deg, transparent, #000 56px, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(90deg, transparent, #000 56px, #000 calc(100% - 56px), transparent); }
+
+@media (min-width: 961px) {
+  .al-map__swipe { display: none; }
+}
+
+/* ------------------------------------------------------------------ tables become cards
+   Below 640px a row is a card: its first cell as the title, then each value under the name of
+   its column (data-label). The Crewline column is the card's dark footer. */
+@media (max-width: 640px) {
+  .compare__scroll, .rows { overflow: visible; }
+  .compare__scroll table, .rows table { display: block; min-width: 0; }
+  .compare__scroll thead, .rows thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .compare__scroll tbody, .rows tbody { display: grid; gap: 12px; }
+  .compare__scroll tr, .rows tr {
+    display: grid;
+    padding: 0 16px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgb(127 127 127 / .32);
+    overflow: hidden;
+  }
+  .compare__scroll :is(th, td), .rows :is(th, td) { display: block; width: auto; padding: 12px 0; }
+  .compare__scroll tbody th, .rows tbody th { padding-top: 16px; border-top: 0; font-size: 1.1rem; font-stretch: 112%; }
+  .compare__scroll td::before, .rows td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: .84rem; font-weight: 500; opacity: .7; }
+  .compare__scroll td.us,
+  .compare__scroll tbody tr:last-child .us { margin: 4px -16px 0; padding: 14px 16px 16px; border-radius: 0; }
+}
+
+/* ------------------------------------------------------------------ fingers
+   Touch screens get hit areas of at least 44px. Padding grows each target and an equal negative
+   margin takes the space back, so nothing moves. */
+@media (max-width: 960px) {
+  .bar__brand { padding-block: 9px; margin-block: -9px; }
+  .more { position: relative; }
+  .more::after { content: ''; position: absolute; inset: -7px -4px; }
+  .meter input { height: 44px; margin-block: 2px 14px; }
+  .al-rule input { height: 44px; margin-block: -14px; }
+  .limits2 summary, .limits__list summary { padding-block: 11px; margin-block: -11px; }
+}
+
+/* ------------------------------------------------------------------ calmer */
+@media (prefers-reduced-motion: reduce) {
+  .drawer, .drawer__scrim, .drawer__panel, .drawer__nav li, .drawer__close, .bar__burger i { transition: none; }
+  .al-map__swipe::after { animation: none; }
+}

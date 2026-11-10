@@ -197,7 +197,9 @@ export function DataTable({ content, ground }: { content: TableContent } & Groun
               <tr key={first}>
                 <th>{first}</th>
                 {rest.map((c, i) => (
-                  <td key={i}>{c}</td>
+                  <td key={i} data-label={content.columns[i + 1]}>
+                    {c}
+                  </td>
                 ))}
               </tr>
             ))}

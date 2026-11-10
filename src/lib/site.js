@@ -130,13 +130,6 @@ export function initSite() {
   })
   addEventListener('keydown', (e) => { if (e.key === 'Escape') openMega(false) }, on)
   document.addEventListener('click', (e) => { if (!e.target.closest('.bar__item')) openMega(false) }, on)
-  const menuBtn = document.querySelector('.bar__menu')
-  const openMenu = (open) => {
-    bar.classList.toggle('is-open', open)
-    menuBtn.setAttribute('aria-expanded', String(open))
-    menuBtn.textContent = open ? 'Close' : 'Menu'
-  }
-  menuBtn.addEventListener('click', () => openMenu(!bar.classList.contains('is-open')), on)
 
   // ------------------------------------------------------------- things rise as they arrive
   const riser = watch(new IntersectionObserver((entries) => {
@@ -259,6 +252,5 @@ export function initSite() {
     intervals.forEach(clearInterval)
     // The header outlives the page: leave its menus closed for the next one
     openMega(false)
-    openMenu(false)
   }
 }

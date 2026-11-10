@@ -141,7 +141,7 @@ define('routing', async (el, s, data) => {
     : (a === 'orders' && b === 'team')
       ? `M${N.orders[0]} ${N.orders[1] + H - 10} C ${N.orders[0] - 120} ${N.orders[1] + 200}, ${N.team[0] + W + 110} ${N.team[1] + 30}, ${N.team[0] + W} ${N.team[1] + H / 2}`
       : curve(from(a), to(b))
-  el.innerHTML = `<div class="al-mapwrap"><svg class="al-map" viewBox="0 0 1250 490" role="img" aria-label="${attr(data.label)}">
+  el.innerHTML = `<p class="al-map__swipe" aria-hidden="true">${esc(data.swipe)}</p><div class="al-mapwrap"><svg class="al-map" viewBox="0 0 1250 490" role="img" aria-label="${attr(data.label)}">
     ${EDGES.map(([a, b]) => `<path class="al-map__cord" data-e="${a}-${b}" d="${dOf(a, b)}"/>`).join('')}
     <path class="al-map__cord al-map__cord--team" data-e="desk-team" d="${dOf('desk', 'team')}"/>
     <path class="al-map__cord al-map__cord--team" data-e="orders-team" d="${dOf('orders', 'team')}"/>
@@ -153,6 +153,16 @@ define('routing', async (el, s, data) => {
     <g class="al-map__dots"></g>
   </svg></div><p class="al-map__cap"><span data-q></span><b data-a></b></p>`
   const ROUTES = data.routes
+  // On a narrow screen the map scrolls sideways: fade whichever edge has more beyond it
+  const wrap = $('.al-mapwrap', el)
+  const edges = () => {
+    const end = wrap.scrollWidth - wrap.clientWidth
+    wrap.classList.toggle('is-more-left', wrap.scrollLeft > 4)
+    wrap.classList.toggle('is-more-right', wrap.scrollLeft < end - 4)
+  }
+  wrap.addEventListener('scroll', edges, { passive: true, signal: s.signal })
+  addEventListener('resize', edges, { signal: s.signal })
+  edges()
   const dots = $('.al-map__dots', el)
   const cap = $('.al-map__cap', el)
   // A route as timed steps: wait on a node, then ride a cord to the next one, then linger
