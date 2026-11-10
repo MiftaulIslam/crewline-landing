@@ -10,7 +10,8 @@ import { RevealText } from '@/components/ui/RevealText'
 import { Section } from '@/components/ui/Section'
 import { SectionHead } from '@/components/ui/SectionHead'
 import { Alive } from '@/components/vignettes/Alive'
-import { RISE, type Ground } from '@/lib/style'
+import { RISE, vars, type Ground } from '@/lib/style'
+import { Icon, type IconName } from '@/components/icons/Icon'
 
 const GAP = { marginTop: 'clamp(40px,5vw,72px)' }
 
@@ -137,16 +138,30 @@ export function ScreenStepper({ content, ground, interval = 6000 }: ScreenSteppe
 }
 
 /** A list where a photo follows the pointer over each row (on touch screens, inline thumbnails) */
-export function HoverList({ content, ground = 'panel' }: { content: HoverListContent } & Grounded) {
+interface HoverListProps extends Grounded {
+  content: HoverListContent
+  /** An icon per row, in order, shown on a tile in place of the lamp */
+  icons?: IconName[]
+  /** The tile colour per row, in order; without it the tiles are quiet ink */
+  accents?: string[]
+}
+
+export function HoverList({ content, ground = 'panel', icons, accents }: HoverListProps) {
   return (
     <section className={`${ground} asks`}>
       <Jack y={14} />
       <div className="wrap">
         <SectionHead title={content.title} lede={content.lede} />
-        <ol className="asks__list">
+        <ol className={icons ? 'asks__list asks__list--icons' : 'asks__list'}>
           {content.items.map((item, i) => (
-            <li key={item.title} tabIndex={0} data-float={i}>
-              <span className="lamp"></span>
+            <li key={item.title} tabIndex={0} data-float={i} style={accents ? vars({ '--a': accents[i] }) : undefined}>
+              {icons ? (
+                <span className="asks__icon">
+                  <Icon name={icons[i]} />
+                </span>
+              ) : (
+                <span className="lamp"></span>
+              )}
               <strong>{item.title}</strong>
               <em>{item.text}</em>
               <img className="asks__thumb" src={item.image} alt="" loading="lazy" />

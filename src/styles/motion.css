@@ -122,7 +122,27 @@
 .stepper button:hover { opacity: .85; transform: translateX(4px); }
 .stepper button.is-on:hover { opacity: 1; }
 
+/* ------------------------------------------------------------------ hover lists with icons
+   Rows that carry an icon tile in place of the lamp (the Agents page's crew). The tile takes the
+   row's colour; pointing at a row lifts and tilts it, as on the home page's crew. */
+.asks__list--icons li { grid-template-columns: 52px minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; }
+.asks__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--a, #1a2740);
+  color: #fff;
+  box-shadow: 0 6px 16px -10px var(--a, #000);
+  transition: transform .45s var(--ease), box-shadow .3s linear;
+}
+.asks__list--icons li strong { transition: transform .45s var(--ease); }
+.asks__list--icons li:is(:hover, :focus) .asks__icon { transform: translateY(-2px) rotate(-6deg); box-shadow: 0 10px 22px -10px var(--a, #000), 0 0 0 3px rgb(255 255 255 / .55); }
+.asks__list--icons li:is(:hover, :focus) strong { transform: translateX(6px); }
+
 @media (max-width: 960px) {
+  .asks__list--icons li { grid-template-columns: 52px minmax(0, 1fr); }
   .bar.is-solid { top: 8px; width: calc(100% - 16px); padding: 0 8px 0 14px; }
   .bar.is-solid.is-open { border-radius: 16px 16px 0 0; }
   .bar.is-open .bar__nav { top: 72px; }
@@ -134,4 +154,5 @@
   .more:hover .more__text { animation: none; }
   .js .rt .rt__word { transform: none; transition: none; }
   .stepper__stage img, .stepper__stage img.is-on, .stepper button { transition: none; animation: none; transform: none; }
+  .asks__icon, .asks__list--icons li strong { transition: none; }
 }

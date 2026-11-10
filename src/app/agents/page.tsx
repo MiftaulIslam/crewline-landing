@@ -1,6 +1,7 @@
 import { PageBehaviour } from '@/components/layout/PageBehaviour'
 import { PhotoHero } from '@/components/sections/heroes'
 import { HoverList, ShowcaseSection, SplitSection, Statement } from '@/components/sections/content'
+import { AGENT_ACCENTS, AGENT_ICONS } from '@/components/icons/agents'
 import { DownloadSection, KeepReading } from '@/components/sections/PageEnd'
 import { PageSchema } from '@/components/seo/PageSchema'
 import { AppWindow } from '@/components/ui/Media'
@@ -19,7 +20,7 @@ export default function AgentsPage() {
       <ShowcaseSection content={content.routes} ground="night">
         <RoutingMap content={vignettes.routing} />
       </ShowcaseSection>
-      <HoverList content={content.crew} ground="panel" />
+      <HoverList content={content.crew} ground="panel" icons={AGENT_ICONS} accents={AGENT_ACCENTS} />
       <SplitSection content={content.houseRules} ground="night">
         <AppWindow image={content.houseRules.image} />
       </SplitSection>
