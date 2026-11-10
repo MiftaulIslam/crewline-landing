@@ -115,9 +115,9 @@
 
 /* ------------------------------------------------------------------ screens that change
    The stepper's screenshot arrives from below; the one it replaces lifts away and fades. */
-.stepper__stage img { opacity: 0; transform: translateY(-28px); transition: opacity .4s linear, transform .5s var(--ease); }
-.stepper__stage img.is-on { opacity: 1; transform: none; animation: swap-up .65s var(--ease); }
-@keyframes swap-up { from { opacity: 0; transform: translateY(56px); } }
+.stepper__stage img { opacity: 0; transform: translateY(-20px); transition: opacity .7s linear, transform 1s var(--ease); }
+.stepper__stage img.is-on { opacity: 1; transform: none; animation: swap-up 1.15s var(--ease) .12s both; }
+@keyframes swap-up { from { opacity: 0; transform: translateY(44px); } 60% { opacity: 1; } }
 .stepper button { transition: opacity .2s linear, transform .3s var(--ease); }
 .stepper button:hover { opacity: .85; transform: translateX(4px); }
 .stepper button.is-on:hover { opacity: 1; }

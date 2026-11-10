@@ -9,11 +9,14 @@ import { Lede } from '@/components/ui/Lede'
 import { RevealText } from '@/components/ui/RevealText'
 import { HoverSwapList } from '@/components/media/HoverSwapList'
 import { RoleGlyph, TierIcon } from '@/components/icons/hardware'
+import { Icon, type IconName } from '@/components/icons/Icon'
 import { RISE, vars } from '@/lib/style'
 import { PageMore } from './parts'
 
 /** Each agent's colour, in the order the crew is listed */
 const AGENT_ACCENTS = ['#2a78d6', '#eb6834', '#0f9e9e', '#d6589a', '#6250d6', '#172033']
+/** Each agent's icon, in the same order: a headset, a parcel, a wrench, a card, a magnifier, a shield */
+const AGENT_ICONS: IconName[] = ['desk', 'orders', 'tech', 'billing', 'research', 'review']
 
 /** The five common questions; a photo follows the pointer over each row (on touch screens, inline thumbnails) */
 export function FiveQuestions({ content }: { content: HoverListContent }) {
@@ -68,7 +71,7 @@ export function CrewSection({ content }: { content: CrewContent }) {
       <HoverSwapList
         className="wrap crew__grid"
         listClassName="crew__list"
-        rows={content.items.map((item, i) => ({ ...item, style: vars({ '--a': AGENT_ACCENTS[i] }) }))}
+        rows={content.items.map((item, i) => ({ ...item, icon: <Icon name={AGENT_ICONS[i]} />, style: vars({ '--a': AGENT_ACCENTS[i] }) }))}
         images={content.images}
         stackClassName="crew__screens"
         imageClassName="win"

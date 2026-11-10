@@ -5,6 +5,8 @@
 // vignette replays come in as data from content/vignettes.json (shapes in vignettes.types.ts);
 // what stays here is layout: SVG geometry, node positions, colours and the animation's pacing.
 
+import { iconSvg } from './icons.js'
+
 let calm = false
 /** Thrown by a stage's timers once its vignette is unmounted, to unwind the running loop */
 const ABORT = Symbol('unmounted')
@@ -145,8 +147,9 @@ define('routing', async (el, s, data) => {
     <path class="al-map__cord al-map__cord--team" data-e="orders-team" d="${dOf('orders', 'team')}"/>
     ${Object.entries(N).map(([k, [x, y, a]]) => `<g class="al-map__node${k === 'team' ? ' is-team' : ''}" data-n="${k}">
       <rect x="${x}" y="${y}" width="${W}" height="${H}" rx="10"/>
-      ${a ? `<rect class="sq" x="${x + 16}" y="${y + 26}" width="18" height="18" rx="4" fill="${AGENT[a]}"/>` : `<circle class="lp" cx="${x + 25}" cy="${y + 35}" r="6"/>`}
-      <text x="${x + 46}" y="${y + 41}">${esc(data.nodes[k])}</text></g>`).join('')}
+      <rect class="al-map__tile${a ? ' is-agent' : ''}${k === 'review' ? ' is-light' : ''}" x="${x + 12}" y="${y + 19}" width="32" height="32" rx="8"${a ? ` style="fill:${AGENT[a]}"` : ''}/>
+      ${iconSvg(k, { size: 20, x: x + 18, y: y + 25, className: 'al-map__ic' })}
+      <text x="${x + 54}" y="${y + 41}">${esc(data.nodes[k])}</text></g>`).join('')}
     <g class="al-map__dots"></g>
   </svg></div><p class="al-map__cap"><span data-q></span><b data-a></b></p>`
   const ROUTES = data.routes

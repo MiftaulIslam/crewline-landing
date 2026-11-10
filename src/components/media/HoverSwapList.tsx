@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import type { Img } from '@/content/types'
 import { SwapStack } from './SwapStack'
 
@@ -41,6 +41,15 @@ export function HoverSwapList({
   className, listClassName, rows, images, stackClassName, imageClassName, initial = 0, head, foot
 }: HoverSwapListProps) {
   const [at, setAt] = useState(initial)
+  // A row takes over only once the pointer rests on it, so sweeping across the list doesn't
+  // flick through every picture
+  const settle = useRef(0)
+  const point = (i: number) => {
+    clearTimeout(settle.current)
+    settle.current = window.setTimeout(() => setAt(i), 140)
+  }
+  const leave = () => clearTimeout(settle.current)
+  useEffect(() => () => clearTimeout(settle.current), [])
   return (
     <div className={className}>
       <div>
@@ -52,7 +61,8 @@ export function HoverSwapList({
               tabIndex={0}
               className={i === at ? 'is-on' : undefined}
               style={row.style}
-              onMouseEnter={() => setAt(i)}
+              onMouseEnter={() => point(i)}
+              onMouseLeave={leave}
               onFocus={() => setAt(i)}
             >
               {row.icon ? <div className="swaplist__icon">{row.icon}</div> : null}

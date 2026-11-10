@@ -7,6 +7,7 @@ import { RichText } from '@/components/ui/RichText'
 import { RevealText } from '@/components/ui/RevealText'
 import { SwapStack } from '@/components/media/SwapStack'
 import { TabRail } from '@/components/media/TabRail'
+import { Icon, type IconName } from '@/components/icons/Icon'
 import { PageMore, SlideStack, Tab, screenImages } from './parts'
 
 /** Waiting, then approved */
@@ -85,6 +86,9 @@ export function LanguagesRotate({ content }: { content: HomeLanguagesContent }) 
 }
 
 /** The four tools, each tab showing its screen: a rail slides to the tab, the screen rises in from below */
+/** Each tool's icon, in the order of home.json's tools: a chat bubble, a speaker, a microphone, a document */
+const TOOL_ICONS: IconName[] = ['chat', 'tts', 'stt', 'scan']
+
 export function ToolsRotate({ content }: { content: ToolsContent }) {
   return (
     <section className="night tools" id="tools" data-rotate="5000">
@@ -94,7 +98,7 @@ export function ToolsRotate({ content }: { content: ToolsContent }) {
           <RevealText as="h2" className="h2" text={content.title} />
           <div className="tools__list" role="tablist" aria-label={content.tabsLabel}>
             {content.items.map((tool, i) => (
-              <Tab key={tool.title} on={i === 0}><strong>{tool.title}</strong><span>{tool.text}</span></Tab>
+              <Tab key={tool.title} on={i === 0}><i className="tools__icon"><Icon name={TOOL_ICONS[i]} /></i><strong>{tool.title}</strong><span>{tool.text}</span></Tab>
             ))}
             <TabRail />
           </div>

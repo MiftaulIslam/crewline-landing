@@ -49,11 +49,19 @@ mark { padding: 0 3px; border-radius: 3px; background: rgb(245 181 60 / .28); co
 .al-map__cord--team { stroke-dasharray: 4 6; }
 .al-map__cord.is-hit { stroke: var(--cord); stroke-width: 3; stroke-dasharray: none; }
 .al-map__node rect:first-child { fill: #111c30; stroke: rgb(244 241 232 / .18); stroke-width: 1.5; transition: stroke .2s linear, fill .2s linear; }
-.al-map__node text { fill: var(--label); font-size: 19px; font-weight: 500; }
-.al-map__node .lp { fill: #51607a; transition: fill .2s linear; }
+.al-map__node text { fill: var(--label); font-size: 17px; font-weight: 500; }
 .al-map__node.is-hit rect:first-child { stroke: var(--lamp); fill: #18263e; }
-.al-map__node.is-hit .lp { fill: var(--live); }
-.al-map__node.is-team.is-hit .lp { fill: var(--lamp); }
+/* Each node's icon sits on a tile: the agent's colour for the crew, quiet ink for channels and
+   destinations, which light up green (amber for your team) when a message passes */
+.al-map__tile { fill: #1a2740; stroke: rgb(244 241 232 / .16); stroke-width: 1; transition: fill .2s linear, stroke .2s linear; }
+.al-map__tile.is-agent { stroke: none; }
+.al-map__ic { color: var(--label-2); transition: color .2s linear; }
+.al-map__tile.is-agent + .al-map__ic { color: #fff; }
+.al-map__tile.is-light + .al-map__ic { color: var(--ink); }
+.al-map__node.is-hit .al-map__tile:not(.is-agent) { fill: rgb(62 194 122 / .18); stroke: var(--live); }
+.al-map__node.is-hit .al-map__tile:not(.is-agent) + .al-map__ic { color: var(--live); }
+.al-map__node.is-team.is-hit .al-map__tile { fill: rgb(245 181 60 / .18); stroke: var(--lamp); }
+.al-map__node.is-team.is-hit .al-map__ic { color: var(--lamp); }
 .al-map__dot { fill: var(--lamp); }
 .al-map__cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; min-height: 2.2em; margin-top: 16px; font-size: 1.1rem; }
 .al-map__cap b { font-weight: 500; color: var(--lamp); }

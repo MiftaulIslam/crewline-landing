@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import type { Question, SiteContent } from '@/content/types'
+import { BrandMark } from '@/components/layout/BrandMark'
 
 export type ChatLabels = SiteContent['chat']
 
@@ -205,8 +206,9 @@ export function LimitsChatLive({ items, chat }: { items: Question[]; chat: ChatL
           and a visitor's own pick is read out below once it has been answered */}
       <div className="al-chat lchat__win" aria-hidden="true">
         <header>
-          <span className={view.phase === 'thinking' ? 'al-lamp is-attn' : 'al-lamp is-live'} />
+          <span className={view.phase === 'thinking' ? 'lchat__brand is-thinking' : 'lchat__brand'}><BrandMark /></span>
           <b>{chat.agent}</b>
+          <span className={view.phase === 'thinking' ? 'al-lamp is-attn' : 'al-lamp is-live'} />
           <small>
             {view.at + 1} / {items.length}
           </small>
@@ -220,7 +222,7 @@ export function LimitsChatLive({ items, chat }: { items: Question[]; chat: ChatL
             <div className="lchat__layer" key={view.run}>
               <Message who={chat.you} me>{q.question}</Message>
               {view.phase === 'thinking' && (
-                <Message who={chat.agent}>
+                <Message who={chat.agent} thinking>
                   <span className="lchat__think">
                     <span className="lchat__dots"><i /><i /><i /></span>
                     {chat.thinking}
@@ -242,11 +244,24 @@ export function LimitsChatLive({ items, chat }: { items: Question[]; chat: ChatL
   )
 }
 
-function Message({ who, me, children }: { who: string; me?: boolean; children: ReactNode }) {
+function Message({ who, me, thinking, children }: { who: string; me?: boolean; thinking?: boolean; children: ReactNode }) {
+  if (me)
+    return (
+      <div className="lchat__msg lchat__msg--me">
+        <small>{who}</small>
+        <p className="al-bub al-bub--me">{children}</p>
+      </div>
+    )
+  // Crewline's messages carry its mark: it turns while thinking and settles when it answers
   return (
-    <div className={me ? 'lchat__msg lchat__msg--me' : 'lchat__msg'}>
-      <small>{who}</small>
-      <p className={me ? 'al-bub al-bub--me' : 'al-bub'}>{children}</p>
+    <div className="lchat__msg lchat__msg--agent">
+      <span className={thinking ? 'lchat__avatar is-thinking' : 'lchat__avatar'}>
+        <BrandMark />
+      </span>
+      <div className="lchat__said">
+        <small>{who}</small>
+        <p className="al-bub">{children}</p>
+      </div>
     </div>
   )
 }

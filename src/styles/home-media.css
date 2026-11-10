@@ -10,19 +10,19 @@
 .swap.swap > .swap__item {
   grid-area: 1 / 1;
   opacity: 0;
-  transform: translate3d(0, -6%, 0);
-  transition: opacity .4s linear, transform .6s var(--ease);
+  transform: translate3d(0, -4%, 0);
+  transition: opacity .7s linear, transform 1s var(--ease);
 }
 .swap.swap > .swap__item.is-on {
   z-index: 1;
   opacity: 1;
   transform: none;
   transition: none;
-  animation: swap-in .75s var(--ease) both;
+  animation: swap-in 1.15s var(--ease) .12s both;
 }
 @keyframes swap-in {
-  from { opacity: 0; transform: translate3d(0, 10%, 0); }
-  55% { opacity: 1; }
+  from { opacity: 0; transform: translate3d(0, 7%, 0); }
+  60% { opacity: 1; }
 }
 
 /* The crew screens and hardware photos, replacing site.css's .crew__frame and .kit__frame */
@@ -158,6 +158,42 @@
 
 /* Narrow screens: one column, the pictures under the list, and no list hover. The rows'
    wash keeps inside the page gutter. */
+/* ------------------------------------------------------------------ agent and tool icons
+   Each agent's icon sits on a tile of its colour, in place of the plain square; the active row's
+   tile lifts and tilts a little. Each tool has an icon box that lights amber when it's on. */
+.crew__list li { grid-template-columns: 40px minmax(0, 1fr); column-gap: 16px; }
+.crew__list li::before { display: none; }
+.crew__list .swaplist__icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--a);
+  color: #fff;
+  box-shadow: 0 6px 16px -10px var(--a);
+  transition: transform .45s var(--ease), box-shadow .3s linear;
+}
+.crew__list .swaplist__icon svg { width: 22px; height: 22px; }
+.crew__list li:hover .swaplist__icon { transform: translateY(-2px); }
+.crew__list li.is-on .swaplist__icon { transform: translateY(-2px) rotate(-6deg); box-shadow: 0 10px 22px -10px var(--a), 0 0 0 3px rgb(255 255 255 / .55); }
+
+.tools__list button { grid-template-columns: 40px minmax(0, 1fr); column-gap: 14px; align-items: center; }
+.tools__icon {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid rgb(244 241 232 / .16);
+  background: rgb(244 241 232 / .05);
+  color: var(--label-2);
+  transition: background-color .3s linear, color .3s linear, border-color .3s linear, transform .45s var(--ease);
+}
+.tools__list button:hover .tools__icon, .tools__list button:focus-visible .tools__icon { color: var(--label); border-color: var(--lamp); transform: translateY(-2px); }
+.tools__list button.is-on .tools__icon { background: var(--lamp); border-color: var(--lamp); color: var(--ink); transform: translateX(8px); }
+
 @media (max-width: 960px) {
   .crew__list li::after { inset-inline: -8px; }
   .swaplist__icon { width: 44px; height: 44px; }
