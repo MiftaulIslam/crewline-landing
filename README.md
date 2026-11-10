@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crewline landing site
 
-## Getting Started
+The marketing site for Crewline, a Windows app that runs six AI support agents on your own PC.
+Next.js 16 (App Router), React 19, TypeScript. Every page is prerendered as static HTML.
 
-First, run the development server:
+Production domain: https://crewline.miftaul.com
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # static pages, Open Graph images, sitemap, robots.txt and llms.txt
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How it is put together
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Components own layout, styling, responsive behaviour and interactions. JSON files own the
+words, images and numbers. A page's route file decides which sections appear and in what order,
+and sets layout props such as the background ground or a flipped split. Nothing in the content
+files chooses a component or describes layout.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+  app/                    one folder per page: page.tsx composes its sections explicitly
+    page.tsx              home
+    flows/page.tsx        ...and 15 more feature pages
+    og/[image]/           Open Graph images (1200x630 PNG), built at build time
+    sitemap.ts robots.ts manifest.ts llms.txt/ llms-full.txt/ not-found.tsx apple-icon.tsx
+  components/
+    layout/               SiteHeader, SiteFooter, Cord, BackToTop, PageBehaviour
+    sections/             shared sections: heroes, steps, splits, bands, stepper, tables, page end
+    home/                 sections that only the home page uses
+    vignettes/            the live product animations, each with a server-rendered text version
+    ui/                   small parts: Section, SectionHead, Lede, RichText, Jack, buttons
+    seo/                  JSON-LD for each page
+  content/
+    site.json             name, header and footer labels, download block
+    pages.json            the feature page registry: menu labels, titles, descriptions, dates
+    pages/<slug>.json     each page's copy, keyed by section
+    faq.json transcripts.json compare.json vignettes.json seo.json
+    types.ts ...          TypeScript interfaces the JSON is checked against
+  lib/
+    site.js alive.js      page behaviour and the vignette animations, started and stopped per page
+    seo/                  metadata, structured data, llms.txt builders
+    config.ts             environment values
+  styles/                 site.css and alive.css
+```
 
-## Learn More
+To change copy, edit the JSON. `**double asterisks**` mark a highlight in the few places that
+show one. To add a feature page, add an entry to `content/pages.json`, write
+`content/pages/<slug>.json`, and compose `app/<slug>/page.tsx` from the section components;
+the menu, footer, sitemap, Open Graph image and llms.txt pick it up from the registry.
 
-To learn more about Next.js, take a look at the following resources:
+## SEO and GEO
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Every page: a unique title and description, a canonical URL, Open Graph and Twitter cards with
+  a generated image, and robots directives allowing large image previews.
+- JSON-LD on every page: WebSite, Organization, SoftwareApplication, WebPage and BreadcrumbList,
+  plus FAQPage on /faq, HowTo on /setup and VideoObject on /story.
+- `sitemap.xml` with images and the film, `robots.txt` that names the main search and AI crawlers,
+  `llms.txt` and `llms-full.txt` for answer engines, a web manifest and a noindex 404.
+- The live animations run in the browser, so each one also renders the same facts as visually
+  hidden text in the server HTML, for crawlers and screen readers.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment
 
-## Deploy on Vercel
+| Variable | Default | What it does |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | `https://crewline.miftaul.com` | The origin used in every absolute URL |
+| `NEXT_PUBLIC_DOWNLOAD_URL` | `/#download` | Where the Download buttons point; set it to the hosted installer |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The installer (228 MB) is too large for this repository. Photo and film credits are in
+`public/CREDITS.md`.

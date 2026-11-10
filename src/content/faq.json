@@ -1,0 +1,12 @@
+[
+  { "question": "Can customers reach it from my website today?", "answer": "Not yet. The chat and call widget runs inside the app, where you set up, test and train your agents. Connecting a live website, an inbox and a phone number is the next piece of work." },
+  { "question": "Is it connected live to Shopify?", "answer": "No. You import CSV exports from Shopify, WooCommerce or a spreadsheet. Importing a newer file updates what's there, so tracking stays current if you do it daily." },
+  { "question": "When it refunds someone, does the money move?", "answer": "Not yet. Crewline records the refund, cancellation or replacement and tells the customer. You still press the button in your store or payment provider." },
+  { "question": "Does it need the internet?", "answer": "Only to download the app and the models. After that, it answers customers on your machine." },
+  { "question": "What computer do I need?", "answer": "Any Windows 10 or 11 PC runs the Light set, slowly. A graphics card with 6 GB gets you Balanced and 10 GB gets you Best. Crewline reads your hardware and recommends one." },
+  { "question": "How long does setting it up take?", "answer": "Plan on an afternoon, and most of that is waiting for the models to download." },
+  { "question": "Can it make mistakes?", "answer": "Yes. Replies show their sources, a Reviewer checks each one first, and anything with real money behind it can wait for your click." },
+  { "question": "What happens when it doesn't know?", "answer": "If no passage in your documents scores above 0.50, the agent says so and hands over. The question is logged, and when you write an answer it's used from the next conversation." },
+  { "question": "Does it work on a Mac?", "answer": "Not today. There's a Windows installer. The models run on NVIDIA, AMD or the processor alone." },
+  { "question": "Will it replace my team?", "answer": "It takes the repeat questions. Complaints, unusual cases and anything over your limits still come to a person, with the work already done." }
+]

@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "title": "Replies in the customer's language",
+    "phrases": [
+      { "text": "¿Dónde está mi pedido?", "lang": "es" },
+      { "text": "Où est ma commande ?", "lang": "fr" },
+      { "text": "Wo ist meine Bestellung?", "lang": "de" },
+      { "text": "Onde está o meu pedido?", "lang": "pt" },
+      { "text": "Where's my order?" }
+    ],
+    "lede": "List the languages your shop speaks. Agents answer in whichever one the customer used, flow messages included."
+  },
+  "exactNumbers": {
+    "title": "The numbers stay exact",
+    "lede": ["Flow messages are written once in English. Details are filled in from the order first, then the sentence is translated, so a model never retypes an order or tracking number."]
+  },
+  "setup": {
+    "title": "Setting it up",
+    "items": [
+      { "title": "List your languages", "text": "In Business profile. Fernway listed English and Spanish." },
+      { "title": "Add one house rule", "text": "Front desk gets \"Reply in the customer's language\"." },
+      { "title": "Test it", "text": "Write to it in Spanish in the customer widget and read what comes back." }
+    ]
+  },
+  "tomas": {
+    "title": "What Tomás saw",
+    "lede": ["Tomás wrote in Spanish and got the tracking details back in Spanish in 1.1 seconds. The trace shows the same steps as any other order."],
+    "image": { "src": "/media/app/15-reply-in-the-customers-language.webp", "alt": "A reply in Spanish beside the steps the agents took." }
+  },
+  "limits": {
+    "title": "What it doesn't do yet",
+    "items": [
+      { "question": "Which languages have you tested?", "answer": "Spanish, on the test day. The others on this page are examples, and quality depends on the model you run, so read some replies before you turn one on." },
+      { "question": "Does it translate my documents?", "answer": "No. The agents read your documents and write their reply in the customer's language." }
+    ]
+  }
+}

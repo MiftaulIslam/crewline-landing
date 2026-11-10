@@ -1,0 +1,21 @@
+{
+  "hero": {
+    "title": "How it compares",
+    "lede": "A cloud chatbot is quick to set up. A helpdesk is familiar, and an agency gives you real people. None of them looks up the order and acts on it within your limits.",
+    "image": { "src": "/media/photo/operators-exchange.webp", "alt": "A large telephone exchange with rows of operators." }
+  },
+  "sideBySide": {
+    "title": "Side by side"
+  },
+  "elsewhere": {
+    "title": "When to pick something else",
+    "items": [
+      { "title": "You need it live today", "text": "Customers can't reach Crewline from your site yet. A hosted widget can be running by tonight." },
+      { "title": "You're on a Mac", "text": "There's only a Windows installer." },
+      { "title": "You need Shopify in real time", "text": "Crewline imports CSV files. A connected app sees orders the moment they change." },
+      { "title": "You want a person on every ticket", "text": "An agency or a helpdesk is the honest choice." },
+      { "title": "You have no spare computer", "text": "Something has to stay on to answer. Cloud tools don't need that." },
+      { "title": "You want refunds to run themselves", "text": "Today it records them and you press the button in your store." }
+    ]
+  }
+}

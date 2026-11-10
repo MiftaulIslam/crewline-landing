@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "title": "You keep the last word",
+    "lede": "Over your limit, nothing moves until you say so. The order, the customer's words and the rule that stopped it are all on one card."
+  },
+  "cameToPerson": {
+    "title": "What came to a person on the test day",
+    "lede": "Three of the 21 conversations needed someone, and each arrived with the work already done.",
+    "items": [
+      { "title": "A $1,444 refund", "text": "Over the $300 limit, so it waited for one click", "image": "/media/photo/tape.webp" },
+      { "title": "An angry customer after hours", "text": "Told when the team is back, first in line in the morning", "image": "/media/photo/night-phone.webp" },
+      { "title": "A question nobody had written down", "text": "Handed over and logged as a gap", "image": "/media/photo/papers.webp" }
+    ]
+  },
+  "decide": {
+    "title": "Change it, or say no",
+    "lede": ["Approve it, change the amount or decline. If you approve, the refund is recorded and the customer gets a confirmation."],
+    "image": { "src": "/media/app/14-refund-approved-by-owner.webp", "alt": "A refund approved by the owner, and the customer told." }
+  },
+  "owners": {
+    "title": "Most days the amber lamps are the whole job",
+    "lede": "Agents do the repeat work, and you decide the handful of things that need someone who owns the place.",
+    "image": { "src": "/media/photo/shop-owners.webp", "alt": "Two smiling shop owners standing behind their counter.", "focus": "50% 30%" }
+  },
+  "setLimit": {
+    "title": "Set the limit yourself",
+    "lede": ["Drag it and watch the same four orders from the test day change hands."]
+  }
+}

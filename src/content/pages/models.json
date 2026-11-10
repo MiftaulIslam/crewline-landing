@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "title": "It runs on a computer you can buy at a shop",
+    "lede": "Crewline reads your graphics card and memory, recommends a size and downloads what it needs in one click."
+  },
+  "jobs": {
+    "title": "What each model does",
+    "lede": "You can change any of these in Settings. These are the ones the Best tier used on the test day.",
+    "columns": ["Job", "Model", "Maker"],
+    "rows": [
+      ["Writes replies and chooses flows", "Qwen3 8B", "Alibaba Qwen"],
+      ["Finds passages", "EmbeddingGemma 300M", "Google"],
+      ["Sharpens the search", "Qwen3 Reranker 0.6B", "Alibaba Qwen"],
+      ["Looks at photos", "Qwen3 VL 2B", "Alibaba Qwen"],
+      ["Hears callers", "Parakeet TDT 0.6B", "NVIDIA"],
+      ["Speaks", "LFM3-Audio 2B", "Liquid AI"]
+    ]
+  },
+  "oneCard": {
+    "title": "One graphics card did all of it",
+    "lede": "The test day ran on an RTX 5070 with 12 GB. Smaller tiers work on any PC, more slowly.",
+    "image": { "src": "/media/photo/rtx.webp", "alt": "A graphics card installed inside a PC." }
+  },
+  "youChoose": {
+    "title": "You choose",
+    "lede": ["Settings lists alternatives for each job, including Gemma 4, gpt-oss, Nemotron, Whisper, GLM-OCR and Qwen3-TTS. They download once, through llama.cpp and whisper.cpp."],
+    "image": { "src": "/media/app/04-models-best-tier-rtx5070.webp", "alt": "The Models screen recommending the Best tier." }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "hero": {
+    "title": "Questions, on the dial",
+    "lede": "Ten things people ask first, including the ones where the answer is \"not yet\".",
+    "image": { "src": "/media/photo/rotary.webp", "alt": "A vintage black rotary telephone, close up.", "focus": "50% 50%" }
+  },
+  "dialTitle": "Pick a number",
+  "listTitle": "All ten, in a list"
+}

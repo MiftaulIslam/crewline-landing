@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "title": "Someone will write at 11:40 tonight",
+    "lede": "Tracking and returns keep running after you close. If something needs a person, the customer gets a straight answer about when you're back.",
+    "image": { "src": "/media/photo/night-phone.webp", "alt": "A person looking at a phone in a dark room at night.", "focus": "50% 40%" }
+  },
+  "dayDial": {
+    "title": "The day on one dial",
+    "lede": ["Fernway's team works nine to six on weekdays, shown in green. The dots stand for messages arriving through the day."]
+  },
+  "nightMessage": {
+    "title": "An angry message at night",
+    "lede": ["Complaints skip the automation and go to a person. After hours, the customer is told when that will be."],
+    "chat": ["zara"]
+  },
+  "decides": {
+    "title": "What decides what they hear",
+    "items": [
+      { "title": "Your opening hours", "text": "You enter them in Business profile. Fernway's are Monday to Friday 9:00 to 18:00 and Saturday 10:00 to 16:00." },
+      { "title": "The first flow on the list", "text": "Complaints and after hours runs first, so an upset customer never gets a cheerful bot." },
+      { "title": "The widget's own line", "text": "It says \"AI assistant now, people back tomorrow at 9 am\", worked out from those hours." }
+    ]
+  },
+  "stopAtSix": {
+    "title": "You get to stop at six",
+    "lede": "In the morning, the board shows what happened overnight and what's waiting for you.",
+    "film": { "src": "/media/video/packing-room.mp4", "poster": "/media/video/packing-room.jpg" }
+  }
+}

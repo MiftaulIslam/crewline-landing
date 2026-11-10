@@ -1,0 +1,31 @@
+{
+  "hero": {
+    "title": "Six agents, one job each",
+    "lede": "A small crew with clear jobs is easier to check than one model that tries to do everything.",
+    "image": { "src": "/media/photo/operators-row.webp", "alt": "A long row of switchboard operators working side by side." }
+  },
+  "routes": {
+    "title": "How a message finds its way",
+    "lede": "These are five real routes from the test day. The lamp shows where each message went."
+  },
+  "crew": {
+    "title": "Who does what",
+    "items": [
+      { "title": "Front desk", "text": "Greets people, works out what they need and passes it on", "image": "/media/app/19-agent-crew.webp" },
+      { "title": "Orders & returns", "text": "Finds the order, starts the return, issues the refund", "image": "/media/app/14-refund-approved-by-owner.webp" },
+      { "title": "Tech support", "text": "Works through error codes from your manuals", "image": "/media/app/16-answer-cites-its-source.webp" },
+      { "title": "Billing", "text": "Payments, invoices and financing plans", "image": "/media/app/15-reply-in-the-customers-language.webp" },
+      { "title": "Researcher", "text": "Searches your documents and looks at customers' photos", "image": "/media/app/06-knowledge-ask-your-documents.webp" },
+      { "title": "Reviewer", "text": "Checks every reply against its sources before it goes out", "image": "/media/app/12-operator-view-photo-worklog.webp" }
+    ]
+  },
+  "houseRules": {
+    "title": "House rules, in your words",
+    "lede": ["Each agent has a list of rules you write yourself. Fernway added \"Wrong size or colour: offer a free exchange before a refund\" for Orders, and \"Reply in the customer's language\" for Front desk."],
+    "image": { "src": "/media/app/19-agent-crew.webp", "alt": "The agent crew and how a conversation moves between them." }
+  },
+  "reviewer": {
+    "line": "The Reviewer read all **21** replies before they went out",
+    "after": "It compares each reply with the sources the agent used. On the test day it had no reason to stop any of them."
+  }
+}

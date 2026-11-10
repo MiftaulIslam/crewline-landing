@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "title": "It has read your paperwork",
+    "lede": "Agents quote your returns policy and your manuals, and tell you which line they used.",
+    "image": { "src": "/media/photo/papers.webp", "alt": "A person reading through a printed document at a table." }
+  },
+  "ingest": {
+    "title": "Seven documents became 14 passages",
+    "lede": ["Fernway gave it six policies and one PDF manual. PDFs, Word files, spreadsheets and web pages are read and indexed on your machine, and nothing is uploaded anywhere."]
+  },
+  "scores": {
+    "title": "Every passage gets a score",
+    "lede": ["This is the real result for one question on the test day. Passages under the 0.50 bar are never used, so when nothing scores high enough the agent hands the question to a person."]
+  },
+  "threshold": {
+    "line": "Below **0.50**, it says it doesn't know",
+    "after": "On the test day that happened once: a customer asked about electric scooters, which the documents don't cover."
+  },
+  "unanswered": {
+    "title": "What happens to a question it can't answer",
+    "items": [
+      { "title": "The customer is told", "text": "They hear that a colleague will answer." },
+      { "title": "The question is logged", "text": "It appears in Knowledge, under the questions your documents don't cover." },
+      { "title": "You write the answer once", "text": "Press Write an answer. It's used from the next conversation." }
+    ]
+  },
+  "whereToLook": {
+    "title": "Where to look",
+    "steps": [
+      { "title": "Your documents", "text": "Each file shows its status, its passages and how often it was cited.", "image": { "src": "/media/app/06-knowledge-ask-your-documents.webp", "alt": "The Knowledge screen listing seven documents." } },
+      { "title": "Sources in a reply", "text": "A citation chip on any answer opens the passage it came from.", "image": { "src": "/media/app/16-answer-cites-its-source.webp", "alt": "An answer with its source highlighted." } },
+      { "title": "Questions to answer next", "text": "What the documents couldn't answer, with a button to write it.", "image": { "src": "/media/app/18-knowledge-gaps-to-fill.webp", "alt": "A question with a Write an answer button." } }
+    ]
+  }
+}

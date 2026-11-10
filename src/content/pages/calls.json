@@ -1,0 +1,31 @@
+{
+  "hero": {
+    "title": "Talk to it the way a customer would",
+    "lede": "Press call inside the app and speak. It hears you, reads the manual and answers aloud. The models run on your PC."
+  },
+  "callScreen": {
+    "title": "The call screen",
+    "lede": ["It shows live captions and what the agent is doing at each moment. The words above come from a chat on the test day; the same flows answer chats and calls."],
+    "image": { "src": "/media/app/tool-call.webp", "alt": "The call screen in the app with live captions." }
+  },
+  "voiceTools": {
+    "title": "Voice tools that come with it",
+    "steps": [
+      { "title": "Text to speech", "text": "Type a line and get a voice. Yours, from ten seconds of speech.", "image": { "src": "/media/app/tool-tts.webp", "alt": "The Text to speech tool." } },
+      { "title": "Speech to text", "text": "Turn recordings into text you can search and click through.", "image": { "src": "/media/app/tool-stt.webp", "alt": "The Speech to text tool." } },
+      { "title": "A private chat", "text": "An assistant that can read your documents, for your own questions.", "image": { "src": "/media/app/tool-chat.webp", "alt": "The Chat tool." } }
+    ]
+  },
+  "hardCalls": {
+    "title": "People still take the hard calls",
+    "lede": "If a caller needs a person, the agent says so and passes on what it has already found.",
+    "image": { "src": "/media/photo/agent-desk.webp", "alt": "A support agent with a headset smiling at a computer.", "focus": "50% 30%" }
+  },
+  "limits": {
+    "title": "What it doesn't do yet",
+    "items": [
+      { "question": "Can it answer my phone number?", "answer": "Not yet. You can test calls inside the app today. Connecting a real phone line is the next piece of work." },
+      { "question": "Which voices can I use?", "answer": "Kokoro on every machine, and LFM3-Audio or Qwen3-TTS with a graphics card. You download all of them from Settings." }
+    ]
+  }
+}

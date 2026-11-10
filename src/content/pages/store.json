@@ -1,0 +1,31 @@
+{
+  "hero": {
+    "title": "It knows the actual order",
+    "lede": "Bring in your products, customers and orders. From then on an agent looks things up the way you would.",
+    "image": { "src": "/media/photo/courier-parcels.webp", "alt": "A delivery courier on a bicycle carrying parcels.", "focus": "50% 40%" }
+  },
+  "threeFiles": {
+    "title": "Three files, as Shopify exports them",
+    "lede": "All 25 products, 150 customers and 281 orders came in with nothing skipped."
+  },
+  "staysCurrent": {
+    "title": "How it stays current",
+    "items": [
+      { "title": "Export from your store", "text": "Shopify, WooCommerce or any spreadsheet with the same columns." },
+      { "title": "Drop the files in", "text": "Settings, then Store data. It shows how many rows it added and skipped." },
+      { "title": "Do it again tomorrow", "text": "A newer export updates what's there and doesn't add duplicates." }
+    ]
+  },
+  "startFresh": {
+    "title": "Start from nothing",
+    "lede": ["Crewline opens on a sample shop so you can press every button. Start over clears it, and a checklist appears and ticks itself off as you go."],
+    "image": { "src": "/media/app/02-get-started-checklist.webp", "alt": "A getting started checklist." }
+  },
+  "limits": {
+    "title": "What it doesn't do yet",
+    "items": [
+      { "question": "Is it connected live to my store?", "answer": "No. Orders are as fresh as your last import, and there's no live link to Shopify." },
+      { "question": "Does the money actually move?", "answer": "Not yet. Crewline records the refund, the order changes and the customer is told. You still press the button in your store or payment provider until those connections exist." }
+    ]
+  }
+}

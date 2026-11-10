@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "title": "It can see what arrived",
+    "lede": "Customers can attach a photo in the chat. A vision model on your PC reads it, and your flow decides what happens next.",
+    "image": { "src": "/media/photo/parcel-open.webp", "alt": "Hands opening a cardboard parcel on a table." }
+  },
+  "tornBox": {
+    "title": "One torn box, from the test day",
+    "lede": "Sam's helmet arrived in a damaged box. The photo is a real stock image and the words are what the models wrote."
+  },
+  "whatHappened": {
+    "title": "What happened next",
+    "items": [
+      { "title": "The photo was described", "text": "The Researcher looked at it for 4.5 seconds and wrote down what it saw." },
+      { "title": "The order was found", "text": "Order 1270, delivered 13 days earlier. The flow checks for delivery in the last 14 days." },
+      { "title": "The limit was checked", "text": "At $150.08 it was under the $300 rule, so nobody had to step in." },
+      { "title": "The reply went out", "text": "A free replacement, nothing to send back, and Fernway handles the carrier claim." }
+    ]
+  },
+  "customerView": {
+    "title": "What the customer sees",
+    "lede": ["The photo appears in the thread on both sides, so whoever picks it up later has the same picture."],
+    "image": { "src": "/media/app/11b-widget-ai-ships-free-replacement.webp", "alt": "The website chat with a photo of a torn box and a reply offering a free replacement." }
+  },
+  "limits": {
+    "title": "What it doesn't do yet",
+    "items": [
+      { "question": "How much has this been tested?", "answer": "We tried it with one photo and one flow. Results will vary with your products and how clear the picture is, so keep a limit on what it can approve." },
+      { "question": "Is the vision model included?", "answer": "It's an optional download of about 1.8 GB. Qwen3 VL 2B was the one used here." }
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "hero": {
+    "title": "Every customer is a line on the board",
+    "lede": "A message comes in, the right agent picks it up, and you can watch each step as it happens."
+  },
+  "afterWriting": {
+    "title": "What happens after someone writes",
+    "items": [
+      { "title": "Front desk reads it", "text": "It works out what the person wants and which agent should have it. Order questions go one way and error codes another." },
+      { "title": "The right agent does the work", "text": "Orders & returns opens the order, Tech support opens the manual, and Billing reads the financing terms." },
+      { "title": "Your rules decide what's allowed", "text": "Flows check the dates and the amounts. Anything past your limit stops and waits for you." },
+      { "title": "The Reviewer reads the reply", "text": "Every reply is checked against its sources before it goes out. On the test day it read 21 and stopped none." },
+      { "title": "The customer gets an answer", "text": "The median first reply on the test day took 0.5 seconds, on one RTX 5070." }
+    ]
+  },
+  "stepIn": {
+    "title": "Step in whenever you like",
+    "lede": "Whisper a hint that only the agents can see, and the next reply uses it. Or press Take over and the conversation is yours.",
+    "image": { "src": "/media/photo/agent-headset.webp", "alt": "A smiling support agent wearing a headset at a desk.", "focus": "50% 28%" }
+  },
+  "oneScreen": {
+    "title": "One screen, with the detail beside it",
+    "steps": [
+      { "title": "The list", "text": "Green means an agent has it and amber means it's waiting for you. If nothing is amber, you can go to bed.", "image": { "src": "/media/app/12-operator-view-photo-worklog.webp", "alt": "The Conversations screen with a list of customers, a thread and a trace." } },
+      { "title": "The trace", "text": "Every step, the agent who took it and how long it took. Open it when an answer surprises you.", "image": { "src": "/media/app/15-reply-in-the-customers-language.webp", "alt": "A trace beside a reply written in Spanish." } },
+      { "title": "The sources", "text": "Click a citation and you get the sentence the agent used, highlighted in its document.", "image": { "src": "/media/app/16-answer-cites-its-source.webp", "alt": "The Sources panel with a highlighted passage." } },
+      { "title": "The customer", "text": "Their orders and earlier conversations, without opening another tab.", "image": { "src": "/media/app/13-needs-you-refund-approval.webp", "alt": "A customer panel beside a refund approval." } }
+    ]
+  },
+  "testDay": {
+    "title": "Messages from the test day",
+    "lede": ["The customers were scripted. The replies are exactly what the models wrote."],
+    "chat": ["nora", "ines", "diego"]
+  },
+  "limits": {
+    "title": "What it doesn't do yet",
+    "items": [
+      { "question": "Can customers write in from my website?", "answer": "Not yet. The widget runs inside the app, where you test and train your agents. Connecting a live website and an inbox is the next piece of work." },
+      { "question": "Does the money actually move?", "answer": "Not yet. Crewline records the refund, the order changes and the customer is told. You still press the button in your store or payment provider until those connections exist." }
+    ]
+  }
+}

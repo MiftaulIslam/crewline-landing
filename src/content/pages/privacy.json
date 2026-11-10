@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "title": "What customers tell you stays in the room",
+    "lede": "After the one-time model download, Crewline answers with the network cable out."
+  },
+  "staysLocal": {
+    "title": "What stays on your machine",
+    "items": [
+      { "title": "Customer messages", "text": "Read and answered by models on your PC. On the test day, none were sent to a cloud." },
+      { "title": "Orders and addresses", "text": "In a local database that you imported yourself." },
+      { "title": "Voices", "text": "Heard and spoken on your own hardware." },
+      { "title": "Photos", "text": "Scaled down and read by a vision model on your PC." },
+      { "title": "Your documents", "text": "Indexed on this machine, with nothing uploaded." },
+      { "title": "Telemetry", "text": "There isn't any. The app doesn't call home." }
+    ]
+  },
+  "cable": {
+    "title": "Pull the cable out",
+    "lede": "You only need the internet to download the app and the models.",
+    "image": { "src": "/media/photo/ethernet.webp", "alt": "A blue network cable, close up." }
+  },
+  "limits": {
+    "title": "Worth knowing",
+    "items": [
+      { "question": "Do I still need to look after the data?", "answer": "Yes. It's your computer, so backups and access are yours to manage." },
+      { "question": "What about when it connects to my website?", "answer": "That part isn't built yet. Messages would have to travel from your site to your PC, and we'll say exactly how when it exists." }
+    ]
+  }
+}

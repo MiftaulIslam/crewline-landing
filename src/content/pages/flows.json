@@ -1,0 +1,39 @@
+{
+  "hero": {
+    "title": "Rules you could read out loud",
+    "lede": "Move the limit and watch which real orders would be handled and which would wait for you. On the test day it was set to $300."
+  },
+  "testRun": {
+    "title": "Every step shows what it did",
+    "lede": ["This is a test run from the app. A test uses your real models and store data, and it doesn't send or change anything."]
+  },
+  "flowList": {
+    "title": "Seven flows ran the test day",
+    "lede": "Five came from templates and two were built for this shop. They're checked from the top, and the first one that fits a message runs.",
+    "items": [
+      { "title": "Complaints and after hours", "text": "Angry customers go straight to a person", "image": "/media/photo/night-phone.webp" },
+      { "title": "Damaged in transit", "text": "Reads the photo and ships a free replacement", "image": "/media/photo/damaged-box.webp" },
+      { "title": "Where's my order", "text": "Finds it and gives the carrier and tracking number", "image": "/media/photo/highway.webp" },
+      { "title": "Cancel before it ships", "text": "Cancels and refunds orders that haven't left", "image": "/media/photo/receipt.webp" },
+      { "title": "Returns and refunds", "text": "Checks the 30-day window and your limit", "image": "/media/photo/tape.webp" },
+      { "title": "Product questions", "text": "Answers from the catalog and your documents", "image": "/media/photo/ebike-display.webp" },
+      { "title": "Tech support and warranty", "text": "Works through the manual's error codes", "image": "/media/photo/wiring-frame.webp" }
+    ]
+  },
+  "building": {
+    "title": "Building one",
+    "steps": [
+      { "title": "Start from a list", "text": "Each flow says in plain words when it runs. Reorder them and the first match wins.", "image": { "src": "/media/app/07-flows-seven-automations.webp", "alt": "Seven flows, each with its trigger in plain words." } },
+      { "title": "Add the steps", "text": "Find details in the message, look up the order, check a date, ask the customer. Every check splits into its paths.", "image": { "src": "/media/app/08-flow-builder-damaged-in-transit.webp", "alt": "The flow builder showing the Damaged in transit flow." } },
+      { "title": "Set your limit", "text": "One rule holds the risk: approve by itself when order.total is at most 300.", "image": { "src": "/media/app/09-flow-step-approve-by-itself-rule.webp", "alt": "A step setting that approves orders of up to 300 dollars." } },
+      { "title": "Test it on a real order", "text": "See every step and its timing before a customer ever reaches it.", "image": { "src": "/media/app/10-flow-test-panel-auto-refund.webp", "alt": "A test run of the returns flow with each step and its timing." } }
+    ]
+  },
+  "limits": {
+    "title": "What it doesn't do yet",
+    "items": [
+      { "question": "Does the money actually move?", "answer": "Not yet. Crewline records the refund, the order changes and the customer is told. You still press the button in your store or payment provider until those connections exist." },
+      { "question": "Can a flow call my other tools?", "answer": "No. Flows work with what's inside Crewline: your imported orders, your documents and your agents." }
+    ]
+  }
+}

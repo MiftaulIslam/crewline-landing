@@ -1,0 +1,41 @@
+{
+  "film": {
+    "title": "One day at Fernway",
+    "lede": "A short film about a shop, a torn box and a $1,444 refund. Kokoro, one of the voice models the app runs, read the narration on one PC.",
+    "play": "Play with sound",
+    "film": { "src": "/media/video/story.mp4", "poster": "/media/photo/damaged-box.webp" },
+    "duration": "PT1M26S",
+    "uploaded": "2026-11-10"
+  },
+  "record": {
+    "title": "The record of that day",
+    "lede": "Twenty customers wrote in and one sent a photo. The customers were scripted, and the replies, actions and timings are real.",
+    "columns": ["Customer wrote", "Flow", "Outcome"],
+    "rows": [
+      ["Where is my order #1276?", "Where's my order", "Carrier and tracking number, 0.3 s"],
+      ["Return order 1263, the charger is too bulky", "Returns and refunds", "$193.58 refunded by the $300 rule, 0.4 s"],
+      ["Return my Commuter C2, order 1258", "Returns and refunds", "$1,444.20 waited for the owner, 0.7 s"],
+      ["Please cancel my order 1281", "Cancel before it ships", "Cancelled, $1,183.20 refunded, 0.3 s"],
+      ["My Trail T1 shows E-07 on long climbs", "Tech support", "Cool for 10 minutes, then Eco or Tour, 1.4 s"],
+      ["Do you ship e-bikes to Canada?", "Product questions", "Yes, $39 to Vancouver, cited, 1.4 s"],
+      ["Which helmet size? My head is 57 cm", "Product questions", "Size M, cited, 1.7 s"],
+      ["Is there a student discount?", "Product questions", "10% with a school email, cited, 0.9 s"],
+      ["Hola, ¿dónde está mi pedido 1274?", "Where's my order", "Answered in Spanish, 1.1 s"],
+      ["Where is my order? ... 1274", "Where's my order", "Asked for the number, then answered, 0.7 s"],
+      ["Can I fold the C2 and take it on Caltrain?", "Product questions", "Yes, counts as luggage, cited, 1.5 s"],
+      ["Does the Thule Yepp Maxi fit the Commuter C2?", "Product questions", "No, cited, 1.4 s"],
+      ["Switch my Flex plan from 6 to 12 months?", "Billing", "Yes, once within 60 days, cited, 1.3 s"],
+      ["How long does the fast charger take?", "Product questions", "About 2.5 hours, cited, 1.5 s"],
+      ["Do you sell electric scooters too?", "Product questions", "Not in the documents: handed over"],
+      ["This is unacceptable...", "Complaints and after hours", "To a person, told the team is back at 9:00, 0.6 s"],
+      ["Return of an order delivered six weeks ago", "Returns and refunds", "Past 30 days, warranty explained, 1.5 s"],
+      ["Return of a $62 order", "Returns and refunds", "Refunded by the rule, 0.6 s"],
+      ["My C2 says E-21 after I took the battery out", "Tech support", "Battery connection steps, 1.8 s"],
+      ["Can I test ride the Trail T1 near Oakland?", "Product questions", "Showroom address and hours, cited, 1.6 s"]
+    ]
+  },
+  "outcome": {
+    "line": "**18 of 19** finished without a person",
+    "after": "The median first reply was 0.5 seconds, 91% of answers cited a source, and none of it went to a cloud. Your shop will get different numbers."
+  }
+}

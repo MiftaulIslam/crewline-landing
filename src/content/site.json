@@ -1,0 +1,43 @@
+{
+  "name": "Crewline",
+  "tagline": "A support team that lives on your PC",
+  "title": "Crewline: a support team that lives on your PC",
+  "description": "Crewline runs six AI agents on your own computer. They answer customers by chat and phone, look up real orders, refund the small ones by your rules, and bring you the rest.",
+  "locale": "en_US",
+  "sampleNote": "Fernway is a sample shop made up for the demo.",
+  "header": {
+    "homeLabel": "Crewline home",
+    "productLabel": "Product",
+    "menuLabel": "Menu",
+    "closeLabel": "Close",
+    "links": [
+      { "label": "Setup", "slug": "setup" },
+      { "label": "Compare", "slug": "compare" },
+      { "label": "The film", "slug": "story" },
+      { "label": "Questions", "slug": "faq" }
+    ],
+    "download": "Download"
+  },
+  "footer": {
+    "columns": [
+      { "title": "What it does", "slugs": ["conversations", "agents", "flows", "knowledge", "photos", "calls"] },
+      { "title": "How it behaves", "slugs": ["approvals", "languages", "after-hours", "privacy"] },
+      { "title": "Getting started", "slugs": ["setup", "store", "models", "compare", "story", "faq"] }
+    ],
+    "download": "Download for Windows",
+    "credits": "Archival film and photographs are in the public domain. Stock clips and photos are from Pexels.",
+    "creditsLabel": "Full credits"
+  },
+  "backToTop": "Back to the top",
+  "download": {
+    "title": "Put someone on the board",
+    "button": "Download for Windows",
+    "spec": "228 MB. Windows 10 or later, 64-bit.",
+    "film": { "src": "/media/video/relays.mp4", "poster": "/media/video/relays.jpg" },
+    "os": "Windows 10, Windows 11",
+    "size": "228 MB",
+    "version": "1.0.0"
+  },
+  "keepReading": "Keep reading",
+  "nextLabel": "Next:"
+}

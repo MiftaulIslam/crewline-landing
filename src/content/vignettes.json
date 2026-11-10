@@ -1,0 +1,238 @@
+{
+  "desk": {
+    "scenes": [
+      {
+        "name": "Diego Alvarez",
+        "channel": "Chat",
+        "said": "Hi, where is my order #1276? I need the bike for my commute next week.",
+        "agent": "Orders & returns",
+        "time": "0.3 s",
+        "steps": ["Found the order number \"1276\"", "Found order \"1276\": shipped, $1,455.07", "Checked \"Shipped?\": yes"],
+        "outcome": "Reply sent",
+        "lamp": "live",
+        "reply": "Your order 1276 is on its way with USPS. Tracking number 9400246051024645566940."
+      },
+      {
+        "name": "Aiko Tanaka",
+        "channel": "Chat",
+        "said": "I'd like to return order 1263, the fast charger is too bulky for my bag.",
+        "agent": "Orders & returns",
+        "time": "0.4 s",
+        "steps": ["Found order \"1263\": delivered, $193.58", "Checked \"Delivered within 30 days?\": yes", "Approved \"Refund $193.58\" by your rules"],
+        "outcome": "Approved by your rules, no one had to step in",
+        "lamp": "live",
+        "reply": "Done: $193.58 is on its way back to your original payment method."
+      },
+      {
+        "name": "Priya Raman",
+        "channel": "Chat",
+        "said": "I want to return my Commuter C2, order 1258. It's too heavy to carry up to my flat.",
+        "agent": "Orders & returns",
+        "time": "0.7 s",
+        "steps": ["Found order \"1258\": delivered, $1,444.20", "Checked \"Delivered within 30 days?\": yes", "Refunds over $300 need a person"],
+        "outcome": "Waiting for your approval",
+        "lamp": "attn",
+        "reply": "I've asked a member of our team to approve your refund. It usually takes a minute or two."
+      }
+    ]
+  },
+  "routing": {
+    "label": "A conversation moves from a channel to the Front desk, to the right agent, past the Reviewer and out as a reply. Anything that needs a person goes to your team.",
+    "nodes": {
+      "phone": "Phone line",
+      "web": "Website chat",
+      "mail": "Email",
+      "desk": "Front desk",
+      "orders": "Orders & returns",
+      "tech": "Tech support",
+      "billing": "Billing",
+      "review": "Reviewer",
+      "research": "Researcher",
+      "out": "Reply sent",
+      "team": "Your team"
+    },
+    "routes": [
+      { "message": "\"Where is my order #1276?\"", "outcome": "Reply sent in 0.3 s", "path": ["web", "desk", "orders", "review", "out"] },
+      { "message": "\"My Trail T1 shows E-07 halfway up long climbs\"", "outcome": "Answered from the manual in 1.4 s", "path": ["web", "desk", "tech", "research", "review", "out"] },
+      { "message": "\"Please cancel my order 1281\"", "outcome": "Cancelled and refunded in 0.3 s", "path": ["mail", "desk", "orders", "review", "out"] },
+      { "message": "\"Can I switch my Fernway Flex plan from 6 to 12 months?\"", "outcome": "Cited the financing terms in 1.3 s", "path": ["web", "desk", "billing", "review", "out"] },
+      { "message": "\"I want to return my Commuter C2, order 1258\"", "outcome": "Over your limit: waits for you", "path": ["web", "desk", "orders", "team"], "attn": true }
+    ]
+  },
+  "rule": {
+    "label": "Approve by itself when the order is at most",
+    "code": "order.total <=",
+    "limit": { "min": 0, "max": 2000, "step": 50, "start": 300 },
+    "orders": [
+      { "name": "Order 1235", "what": "Return, light set", "total": 62.29 },
+      { "name": "Order 1270", "what": "Replacement, torn box", "total": 150.08 },
+      { "name": "Order 1263", "what": "Return, fast charger", "total": 193.58 },
+      { "name": "Order 1258", "what": "Return, Commuter C2", "total": 1444.2 }
+    ],
+    "auto": "Handled on its own",
+    "wait": "Waits for you"
+  },
+  "flowrun": {
+    "said": "\"Hi, I want to return order 1263, the fast charger is too bulky for my bag.\"",
+    "agents": { "desk": "Front desk", "review": "Reviewer", "orders": "Orders & returns" },
+    "steps": [
+      { "agent": "desk", "text": "found the order number \"1263\"", "time": "<1 ms" },
+      { "agent": "review", "text": "checked \"Order number given?\": yes", "time": "<1 ms" },
+      { "agent": "orders", "text": "found order \"1263\": delivered, $193.58", "time": "2 ms" },
+      { "agent": "review", "text": "checked \"Delivered within 30 days?\": yes", "time": "<1 ms" },
+      { "agent": "orders", "text": "would start a return for order \"1263\"", "time": "<1 ms" },
+      { "agent": "review", "text": "approved \"Refund $193.58 for order 1263\" by your rules", "time": "<1 ms" },
+      { "agent": "orders", "text": "would refund $193.58 on order \"1263\"", "time": "<1 ms" },
+      { "agent": "desk", "text": "sent the reply", "time": "256 ms" },
+      { "agent": "desk", "text": "finished the flow", "time": "<1 ms" }
+    ],
+    "done": "The flow finished in 261 ms. Nothing was sent and nothing changed"
+  },
+  "scan": {
+    "image": {
+      "src": "/media/photo/damaged-box.webp",
+      "alt": "A cardboard box on a porch with a torn top flap, a red fragile sticker and packing peanuts spilling out."
+    },
+    "boxes": [
+      { "label": "Top flap torn", "left": 27, "top": 36, "width": 44, "height": 11 },
+      { "label": "FRAGILE label", "left": 56, "top": 54, "width": 16, "height": 17 },
+      { "label": "Packing spilled", "left": 64, "top": 68, "width": 22, "height": 11, "low": true }
+    ],
+    "read": {
+      "agent": "Researcher",
+      "time": "4.5 s",
+      "text": "The photo shows a brown cardboard box with a \"FRAGILE\" label on the side, placed on a stone porch step. The box has a small hole in the corner and some white styrofoam packing material is scattered around it."
+    },
+    "reply": {
+      "agent": "Orders & returns",
+      "time": "1.9 s",
+      "text": "We're sorry to hear your order arrived damaged. The photo shows a torn box with scattered styrofoam. We're shipping a free replacement of the items on order 1270 today."
+    }
+  },
+  "approve": {
+    "waiting": "Waiting for your approval",
+    "waited": 65,
+    "agent": "Orders & returns",
+    "asks": "wants to refund Priya.",
+    "details": [
+      { "term": "Refund", "detail": "$1,444.20 for order 1258" },
+      { "term": "Why", "detail": "\"I want to return my Commuter C2, order 1258. It's too heavy to carry up to my flat.\"" }
+    ],
+    "rule": "Refunds over $300 need a person",
+    "buttons": { "approve": "Approve refund", "change": "Change amount", "decline": "Decline" },
+    "approved": "Approved by you",
+    "after": "Refunded. Priya has been told"
+  },
+  "cite": {
+    "question": "Can I return my e-bike after 30 days?",
+    "threshold": 0.5,
+    "bar": "0.50 bar: nothing below is used",
+    "passages": [
+      { "title": "Returns and refunds", "text": "You can return anything you bought from us within 30 days of delivery, for any reason.", "score": 1 },
+      { "title": "Warranty", "text": "Every Fernway e-bike and accessory comes with our warranty, counted from the day it was delivered. You don't need to register.", "score": 0.82 },
+      { "title": "Damaged in transit", "text": "...Keep or recycle the damaged one; there is no need to send it back.", "score": 0.24 }
+    ]
+  },
+  "ingest": {
+    "documents": [
+      { "name": "Returns and refunds.md", "passages": 2 },
+      { "name": "Damaged in transit.md", "passages": 2 },
+      { "name": "Shipping and delivery.md", "passages": 2 },
+      { "name": "Warranty.md", "passages": 1 },
+      { "name": "Payments and financing.md", "passages": 2 },
+      { "name": "FAQ.md", "passages": 2 },
+      { "name": "Commuter C2 owner's manual.pdf", "passages": 3 }
+    ],
+    "unit": { "one": "passage", "other": "passages" },
+    "total": "passages your agents can quote"
+  },
+  "import": {
+    "files": [
+      { "title": "Products", "count": 25, "file": "products_export.csv" },
+      { "title": "Customers", "count": 150, "file": "customers_export.csv" },
+      { "title": "Orders", "count": 281, "file": "orders_export.csv" }
+    ],
+    "reading": "Reading",
+    "done": "{n} added, 0 skipped"
+  },
+  "call": {
+    "title": "Fernway support",
+    "clock": 18,
+    "lines": [
+      { "status": "Listening", "caption": "My Trail T1 shows E-07 halfway up long climbs. Is something broken?" },
+      { "status": "Tech support is reading the manual", "caption": "" },
+      { "status": "Speaking", "caption": "The E-07 error indicates the motor is overheating. Stop and let the motor cool for 10 minutes, then ride in Eco or Tour mode." }
+    ]
+  },
+  "translate": {
+    "message": "Hola, ¿dónde está mi pedido 1274?",
+    "stages": [
+      { "label": "The message in your flow", "text": "Your order **{{order.id}}** is on its way with **{{order.carrier}}**. Tracking number **{{order.tracking}}**." },
+      { "label": "Filled in from the order", "text": "Your order **1274** is on its way with **UPS**. Tracking number **1Z0202309442684054**." },
+      { "label": "What Tomás received", "text": "Su pedido **1274** está en camino con **UPS**. Número de seguimiento **1Z0202309442684054**." }
+    ],
+    "note": "The highlighted parts come from the order and stay exact"
+  },
+  "hours": {
+    "label": "A 24-hour dial. Your team works from nine to six. The agents answer around the clock.",
+    "open": 9,
+    "close": 18,
+    "calls": [0.4, 7.6, 11.2, 13.5, 16.1, 19.3, 22.67],
+    "during": "Your team is in. Agents take the repeat questions",
+    "after": "Your team is asleep. Agents answer, and tell people you're back at 9"
+  },
+  "private": {
+    "label": "The language model, document search, vision and voice all run inside your computer next to your store data. The network cable is unplugged.",
+    "computer": "Your computer",
+    "modules": {
+      "model": "Language model",
+      "search": "Document search",
+      "vision": "Vision",
+      "voice": "Voice",
+      "db": "Your store data"
+    },
+    "unplugged": "Unplugged",
+    "sent": "Sent to a cloud:"
+  },
+  "tiers": {
+    "start": "Best",
+    "tiers": [
+      {
+        "name": "Light",
+        "need": "Under 16 GB of memory, no graphics card",
+        "used": "Runs on the processor, more slowly",
+        "fill": 0,
+        "models": [
+          { "job": "Writes", "model": "Qwen3 1.7B", "runs": "4 GB memory" },
+          { "job": "Reads scans", "model": "LightOnOCR 2 1B", "runs": "4 GB memory" },
+          { "job": "Hears", "model": "Parakeet TDT 0.6B", "runs": "2 GB memory" },
+          { "job": "Speaks", "model": "Kokoro", "runs": "1 GB memory" }
+        ]
+      },
+      {
+        "name": "Balanced",
+        "need": "16 GB of memory, or a 6 GB graphics card",
+        "used": "Needs 6 GB of graphics memory",
+        "fill": 0.5,
+        "models": [
+          { "job": "Writes", "model": "Qwen3 4B Instruct", "runs": "4 GB card" },
+          { "job": "Reads scans", "model": "LightOnOCR 2 1B", "runs": "2 GB card" },
+          { "job": "Hears", "model": "Parakeet TDT 0.6B", "runs": "on the processor" },
+          { "job": "Speaks", "model": "Kokoro", "runs": "on the processor" }
+        ]
+      },
+      {
+        "name": "Best",
+        "need": "A 10 GB graphics card and 16 GB of memory",
+        "used": "Needs 10 GB of graphics memory",
+        "fill": 0.83,
+        "models": [
+          { "job": "Writes", "model": "Qwen3 8B", "runs": "7 GB card" },
+          { "job": "Sharpens search", "model": "Qwen3 Reranker 0.6B", "runs": "1 GB card" },
+          { "job": "Sees photos", "model": "Qwen3 VL 2B", "runs": "optional, 3 GB card" },
+          { "job": "Speaks", "model": "LFM3-Audio 2B", "runs": "3 GB card" }
+        ]
+      }
+    ]
+  }
+}

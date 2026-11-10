@@ -1,0 +1,29 @@
+{
+  "label": "Comparison table",
+  "columns": ["Chatbot widget", "Helpdesk with canned replies", "Outsourced agents"],
+  "ours": "Crewline",
+  "rows": [
+    { "label": "Knows the actual order", "values": ["Rarely", "A person looks it up", "A person looks it up"], "ours": "Looks it up itself" },
+    { "label": "Takes action", "values": ["No", "By hand", "By hand, with access to your systems"], "ours": "Refunds, cancels and replaces inside your limits" },
+    { "label": "When it doesn't know", "values": ["Often improvises", "Only as good as the macro", "Depends on training"], "ours": "Says so, hands over and logs the question" },
+    { "label": "Reads photos of damage", "values": ["No", "A person opens the attachment", "A person opens the attachment"], "ours": "Yes, and the flow acts on it" },
+    { "label": "Your languages", "values": ["Varies", "Whatever the macro was written in", "Whoever you staff"], "ours": "The customer's, from your list" },
+    { "label": "What you can see", "values": ["A transcript", "The ticket", "A summary"], "ours": "Every step, source and timing" },
+    { "label": "Where customer data goes", "values": ["The vendor's cloud", "The helpdesk's cloud", "Shared with the contractor"], "ours": "Stays on your PC" },
+    { "label": "What you pay for", "values": ["Seats or resolutions", "Seats", "Hours"], "ours": "Your own computer and its power" }
+  ],
+  "meter": {
+    "label": "Conversations a month the AI resolves:",
+    "rate": 0.99,
+    "rateLabel": "At $0.99 a resolution",
+    "perMonth": "a month",
+    "oursLabel": "Per conversation on Crewline",
+    "oursValue": "$0",
+    "oursNote": "on hardware you own",
+    "note": "$0.99 is the rate widely reported for Intercom Fin. Gorgias is reported at $0.90 to $1.00 per AI interaction. These figures come from third-party pricing pages in November 2026, so check current prices before you rely on them.",
+    "min": 200,
+    "max": 20000,
+    "step": 100,
+    "start": 3000
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "title": "From install to first solved ticket",
+    "lede": "Plan on an afternoon, and most of that is waiting for the models to download.",
+    "image": { "src": "/media/photo/shop-desk.webp", "alt": "A shop owner working on a laptop among parcels." }
+  },
+  "guide": {
+    "title": "Nine steps",
+    "steps": [
+      { "title": "Install it", "text": "One Windows installer. It opens on Fernway, a sample shop, so you can press every button first.", "image": { "src": "/media/app/20-get-started-all-done.webp", "alt": "The Get started checklist, complete." } },
+      { "title": "Clear the sample shop", "text": "Open Store data and choose Start over. A checklist appears.", "image": { "src": "/media/app/02-get-started-checklist.webp", "alt": "A getting started checklist." } },
+      { "title": "Let it pick the models", "text": "It reads your hardware and recommends a size.", "image": { "src": "/media/app/04-models-best-tier-rtx5070.webp", "alt": "The Models screen." } },
+      { "title": "Tell it who you are", "text": "Store name, hours, tone, sign-off and languages.", "image": { "src": "/media/app/03-business-profile.webp", "alt": "The Business profile screen." } },
+      { "title": "Bring your orders", "text": "Drop in the CSV files from your store.", "image": { "src": "/media/app/05-shopify-import-281-orders.webp", "alt": "The Store data import." } },
+      { "title": "Hand over your policies", "text": "Returns, shipping, warranty, manuals and your FAQ.", "image": { "src": "/media/app/06-knowledge-ask-your-documents.webp", "alt": "The Knowledge screen." } },
+      { "title": "Write your rules", "text": "Start from five templates or a blank page.", "image": { "src": "/media/app/08-flow-builder-damaged-in-transit.webp", "alt": "The flow builder." } },
+      { "title": "Try to break it", "text": "Test flows on real orders without sending a message.", "image": { "src": "/media/app/10-flow-test-panel-auto-refund.webp", "alt": "A flow test run." } },
+      { "title": "Run your day", "text": "Clear whatever's amber, then answer what the agents couldn't.", "image": { "src": "/media/app/18-knowledge-gaps-to-fill.webp", "alt": "Questions left to answer." } }
+    ]
+  },
+  "needs": {
+    "title": "What you'll need",
+    "items": [
+      { "title": "A Windows PC", "text": "Windows 10 or later, 64-bit. The installer is 228 MB." },
+      { "title": "Your exports", "text": "Products, customers and orders as CSV." },
+      { "title": "Your policies", "text": "Returns, shipping, warranty, in whatever format you have them." },
+      { "title": "Disk space for models", "text": "A few GB for Light, more for Best." },
+      { "title": "Your limits", "text": "Decide what it may refund without asking." },
+      { "title": "An afternoon", "text": "Most of it is download time." }
+    ]
+  }
+}

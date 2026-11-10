@@ -1,0 +1,23 @@
+{
+  "home": {
+    "description": "Crewline runs six AI agents on your own Windows PC. They answer customers, look up real orders, refund the small ones by your rules and bring you the rest."
+  },
+  "pages": {
+    "conversations": { "description": "See every customer conversation as a line on one board, with each step an agent took and how long it took. Whisper a hint or take over at any time." },
+    "agents": { "description": "Crewline runs six AI agents with one job each: Front desk, Orders and returns, Tech support, Billing, Researcher, and a Reviewer that checks every reply." },
+    "flows": { "description": "Write your shop's support rules as flows: plain steps with limits you set, like a $300 refund limit, tested on real orders before a customer reaches them." },
+    "knowledge": { "description": "Agents answer from your own policies and manuals, show the passage they used, and hand the question to a person when no passage scores above 0.50." },
+    "photos": { "description": "A customer sends a photo of a torn box. A vision model on your PC reads it, the order is found, your limit is checked and the flow decides what happens." },
+    "calls": { "description": "Crewline hears callers with Parakeet and answers aloud with Kokoro or LFM3-Audio, all on your own computer. You can test calls inside the app today." },
+    "approvals": { "description": "Refunds over your limit stop and wait for you, with the order, the customer's words and the rule that stopped it on one card. Approve, change or decline." },
+    "languages": { "description": "List the languages your shop speaks. Agents reply in the one the customer used, and order and tracking numbers are filled in before the translation." },
+    "after-hours": { "description": "Agents keep answering tracking and returns questions after you close, and tell upset customers honestly when a person will be back in the morning." },
+    "store": { "description": "Import products, customers and orders from Shopify or WooCommerce CSV exports. Agents look up real orders from then on, as fresh as your last import." },
+    "models": { "description": "Crewline picks open AI models for your hardware: Light for any PC, Balanced for 6 GB graphics cards, Best for 10 GB. The test day ran on one RTX 5070." },
+    "privacy": { "description": "Orders, addresses, voices and photos are processed on your own machine, and there is no telemetry. After the one-time model download, it answers offline." },
+    "setup": { "description": "Nine steps from installing Crewline on Windows to running your support day from one board. Plan on an afternoon, mostly spent downloading the models." },
+    "compare": { "description": "How Crewline compares with chatbot widgets, helpdesks with canned replies and outsourced agents, and when one of those is the better choice for your shop." },
+    "story": { "description": "An 86-second film about a shop, a torn box and a $1,444 refund, and the record of the scripted test day behind it, with every reply, action and timing." },
+    "faq": { "description": "Common questions about Crewline: the computer it needs, working offline, how long setup takes, and what it doesn't do yet, such as live Shopify sync." }
+  }
+}
